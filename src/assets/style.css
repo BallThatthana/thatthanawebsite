@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    margin: 0!important;
+}
+
+h1 {
+    @apply text-center font-semibold text-4xl xs:text-5xl sm:text-6xl md:text-7xl m-auto px-4 mb-4 sm:px-4;
+}
+
+h2 {
+    @apply text-center font-semibold text-2xl xs:text-3xl sm:text-4xl md:text-5xl m-auto px-4 mb-4 sm:px-4;
+}
+
+h3 {
+    @apply text-center font-normal text-xl xs:text-2xl sm:text-3xl md:text-4xl px-4 mb-4 sm:px-4;
+}
+
+.container-fluid {
+    @apply p-6 xs:py-6 xs:px-12 sm:py-10 sm:px-16 md:py-10 md:px-20 lg:py-10 lg:px-32;
+}
+
+.my-swal{
+    z-index: 1000 !important;
+}
