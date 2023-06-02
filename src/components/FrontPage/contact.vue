@@ -1,6 +1,6 @@
 <template>
     <Topbar/>
-    <div 
+    <div v-if="!loading"
         class="border rounded-xl shadow-xl mt-20 pt-8 p-6 w-2/3 sm:w-1/2 lg:w-1/3 m-auto">
         <h3 class="text-base sm:text-xl font-semibold"> Any questions, please fill following form to contact me.
         </h3>
@@ -15,7 +15,7 @@
                             id="name"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your name"
-                            v-model="values.name"
+                            v-model="form.name"
                         />
                 </div>
 
@@ -26,7 +26,7 @@
                             id="company"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your company"
-                            v-model="values.company"
+                            v-model="form.company"
                         />
                 </div>
     
@@ -37,7 +37,7 @@
                             id="email"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your email"
-                            v-model="values.email"
+                            v-model="form.email"
                         />
                 </div>
 
@@ -48,7 +48,7 @@
                             id="textarea"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your email"
-                            v-model="values.message">
+                            v-model="form.message">
                          </textarea>
                 </div>
 
@@ -61,6 +61,15 @@
             </form>
         </div>
     </div>
+    <div v-else>
+        <div class="flex justify-center items-center min-h-screen">
+            <flower-spinner
+                :animation-duration="2500"
+                :size="70"
+                color="#ff1d5e"
+            />
+        </div>
+    </div>
 </template>
 
 <script>
@@ -68,21 +77,23 @@ import { mapGetters } from 'vuex';
 import Topbar from './topbar.vue'
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
+import { FlowerSpinner } from 'epic-spinners'
 
 export default {
     components: {
-        Topbar
+        Topbar,
+        FlowerSpinner
     },
     computed:{
-        ...mapGetters(['isAuth', 'getUserData']),
+        ...mapGetters(['isAuth']),
         showLogin(){
             return !this.isAuth;
-        }
+        },
     },
     data(){
         return {
-            type:false,
-            values: {
+            loading:false,
+            form: {
                 name:'',
                 email:'',
                 company:'',
@@ -93,19 +104,23 @@ export default {
     methods:{
        async sendEmail(){
             try {  
-                const { name, email, message } = this.values
+                const { name, email, message } = this.form
                 await axios.post('http://localhost:3000/api/send-email', {
                     name,
                     email,
                     text: message
                 })
-                showSweetAlert('success', 'ส่งอีเมลสำเร็จ', false, 1500)
+                this.loading = true;
+                showSweetAlert('success', 'ส่งอีเมลเรียบร้อย', false, 1500)
+
                 setTimeout(()=>{
+                    this.loading = false;
                     this.$router.push('/')
-                },3000)
+                },3000);
+
             } catch(err){
                 showSweetAlert('error', 'มีข้อผิดพลาด', false, 1500)
-                console.log(err)
+                this.loading = false;
            }
         }
     }

@@ -1,13 +1,15 @@
+/* eslint-disable */
 import { createApp } from 'vue'
 import App from './App.vue'
-import Store from './Store/vuex'
-import Router from './routes.js'
+import store from './Store/index';
+import router from './routes'
 import VueSweetalert2 from 'vue-sweetalert2'
 import './assets/style.css'
 import './firebase'
 
 const app = createApp(App)
-app.use(Store)
-app.use(Router)
+  
 app.use(VueSweetalert2)
+app.use(store)
+app.use(router)
 app.mount('#app')
