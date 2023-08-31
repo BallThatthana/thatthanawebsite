@@ -10,16 +10,16 @@
     <header class="h-18">
         <nav id="navbar" class="flex justify-between place-items-center" :class="{ scrolled: isScrolled }">
             <span class="pl-5 font-semibold text-white"><a href="/">Ball Thatthana</a></span>
-            <ul>
-                <!-- <li>
+            <!-- <ul>
+                <li>
                     <a href="/" class="transition duration-500 ease-in-out hover:text-white hover:bg-black">Home</a>
-                </li> -->
+                </li>
                 <li>
                     <router-link class="nav-link" :to="{name: 'contact'}"> 
                        Contact
                    </router-link>
                 </li>
-            </ul>
+            </ul> -->
         </nav>
     </header>
 </template> 

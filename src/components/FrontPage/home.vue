@@ -1,20 +1,23 @@
 <template>
-     <Topbar/>
+     <!-- <Topbar/> -->
      <Banner/>
      <Portfolio/>
+     <Footer/>
  </template>
  
  <script>
  import { mapGetters } from 'vuex';
- import Topbar from './topbar.vue'
+ //import Topbar from './topbar.vue'
  import Banner from './banner.vue'
  import Portfolio from './portfolio.vue'
+ import Footer from './footer.vue'
  
  export default {
      components:{
-         Topbar,
+         //Topbar,
          Banner,
-         Portfolio
+         Portfolio,
+         Footer
      },
      computed:{
          ...mapGetters(['isAuth']),

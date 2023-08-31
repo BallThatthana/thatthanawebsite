@@ -1,4 +1,4 @@
-gitconst controller = require('../controllers/tiktok_controller.js');
+const controller = require('../controllers/tiktok_controller.js');
 module.exports = ({ express }) => {
   const route = express.Router();
 
