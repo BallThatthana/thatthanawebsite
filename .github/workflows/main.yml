@@ -1,11 +1,8 @@
-name: Deploy to Firebase Hosting with Node.js server on Push to Main
-on:
-  push:
-    branches:
-      - main
-
+name: Deploy to Firebase Hosting with Node.js server on PR
+on: pull_request
 jobs:
   build_and_preview:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,5 +22,5 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BALL_WEBSITE_72C4A }}'
-          projectId: ball-website-72c4a
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BALLTHATTHANA_APP }}'
+          projectId: ballthatthana-app
