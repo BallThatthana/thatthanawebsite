@@ -34,7 +34,7 @@ jobs:
           channelId: live
           projectId: ballthatthana-app
 
-      - name: Stop Node server
-        run: |
-          npm install -g forever
-          forever stop server/index.js || true
+      # - name: Stop Node server
+      #   run: |
+      #     npm install -g forever
+      #     forever stop server/index.js || true
