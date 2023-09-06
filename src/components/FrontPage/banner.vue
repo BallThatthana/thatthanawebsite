@@ -1,17 +1,19 @@
 <template>
-<div id="banner-container" class="container-fluid w-full flex grid xs:grid-cols-1 md:grid-cols-2 justify-center items-center font-bold">
-        <div class="mx-auto w-50 h-50 overflow-hidden">
-            <img id="my-image" class="mx-auto w-1/2 md:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image">
-            <h2 class="text-center text-white">Ball Thatthana</h2>
-            <!-- <h3 class="text-white">Frontend Developer</h3> -->
-        </div>
-        <div class="">
-          <p class="text-center text-white text-lg sm:text-xl font-normal">Experienced in web development, digital marketing and content creation. 
-Many years experiences in the hospitality industry.</p>
-          <br>
-          <p class="text-center text-white text-lg sm:text-xl font-normal">Willing to be a part of a great team to contribute to a meaningful project.</p>
-        </div>
+<div id="banner-container" class="min-h-[460px] container-fluid w-full flex flex-col xs:flex-row xs:items-center md:flex-row md:items-center justify-center font-bold">
+    <div class="mx-auto overflow-hidden">
+        <img id="my-image" class="mx-auto w-1/2 md:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image">
+        <h2 class="text-center text-white text-xl sm:text-2xl">Ball Thatthana</h2>
+        <!-- <h3 class="text-white">Frontend Developer</h3> -->
+    </div>
+    <div class="pb-6">
+        <p class="text-center text-white text-sm sm:text-base md:text-xl font-normal">Experienced in web development, digital marketing and content creation. 
+            Several years of experience in the hospitality industry.</p>
+        <br>
+        <p class="text-center text-white text-sm sm:text-xl font-normal">Willing to be a part of a great team to contribute to a meaningful project.</p>
+    </div>
 </div>
+
+
 
 </template>
 <script>

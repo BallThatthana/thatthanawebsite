@@ -6,7 +6,7 @@ require('dotenv').config();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:8080'
+    origin: 'https://ballthatthana-app.web.app', // Update this line
 }));
 
 // Routes

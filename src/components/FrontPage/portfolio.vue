@@ -8,7 +8,7 @@
             class="p-10 flex justify-between items-stretch content-center flex-wrap grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-14 justify-items-center items-center">
             <div class="card text-center py-6 px-4 max-w-sm rounded-xl overflow-hidden">
                 <a href="https://martechsecrets.web.app/" target="_blank">
-                <img class="card-img m-auto w-full aspect-square object-cover" src="https://zbase-global.zingfront.com/saasbox/resources/jpg/Facebook-interest-lists__20edf8170015769067a2e115aa823651__20edf8170015769067a2e115aa823651.jpg" alt="Facebook-interests-finder-app"/>
+                <img class="card-img m-auto w-full aspect-square object-cover" src="https://www.postmediasolutions.com/wp-content/uploads/2022/09/AudienceTargeting-1024x704.jpg" alt="Facebook-interests-finder-app"/>
                 <div class="card-text my-2">
                     <h5 class="card-title font-bold">Facebook interest finder</h5>
                     <p class="card-description">Nagivating through Facebook hidden interests, to reach new audiences, that most of other people can't see</p>

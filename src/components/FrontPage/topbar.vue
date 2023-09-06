@@ -1,16 +1,16 @@
 <template>
-    <div v-if="isAuth" class="text-center text-xs pb-2">
+    <!-- <div v-if="isAuth" class="text-center text-xs pb-2">
         <span>You are signed In </span>
         <button 
             @click="onLogOut"
             class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >Logout
         </button>
-    </div>
+    </div> -->
     <header class="h-18">
         <nav id="navbar" class="flex justify-between place-items-center" :class="{ scrolled: isScrolled }">
             <span class="pl-5 font-semibold text-white"><a href="/">Ball Thatthana</a></span>
-            <!-- <ul>
+            <ul>
                 <li>
                     <a href="/" class="transition duration-500 ease-in-out hover:text-white hover:bg-black">Home</a>
                 </li>
@@ -19,7 +19,7 @@
                        Contact
                    </router-link>
                 </li>
-            </ul> -->
+            </ul>
         </nav>
     </header>
 </template> 
@@ -28,9 +28,9 @@ import { mapActions, mapGetters } from 'vuex'
 //import Home from './home.vue'
 
 export default {
-    // components: {
-    //     Home,
-    // },
+    components: {
+        //Home,
+    },
     computed: {
         ...mapGetters(['isAuth']),
         ...mapActions(['signOut'])
@@ -78,6 +78,7 @@ header{
 }
 
 nav {
+    top: 0;
     position: fixed;
     background-color:black;
     width: 100%;
