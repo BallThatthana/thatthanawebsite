@@ -1,6 +1,7 @@
 <template>
      <Topbar/>
      <Banner/>
+     <Social/>
      <Portfolio/>
      <Footer/>
  </template>
@@ -11,13 +12,15 @@
  import Banner from './banner.vue'
  import Portfolio from './portfolio.vue'
  import Footer from './footer.vue'
+ import Social from './social-icon.vue'
  
  export default {
      components:{
          Topbar,
          Banner,
          Portfolio,
-         Footer
+         Footer,
+         Social
      },
      computed:{
          ...mapGetters(['isAuth']),

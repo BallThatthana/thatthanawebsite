@@ -12,7 +12,9 @@
             <span class="pl-5 font-semibold text-white"><a href="/">Ball Thatthana</a></span>
             <ul>
                 <li>
-                    <a href="/" class="transition duration-500 ease-in-out hover:text-white hover:bg-black">Home</a>
+                    <router-link class="nav-link transition duration-500 ease-in-out hover:text-white hover:bg-black" :to="{name: 'home'}">
+                        Home
+                    </router-link>
                 </li>
                 <li>
                     <router-link class="nav-link" :to="{name: 'contact'}"> 
@@ -65,8 +67,6 @@ export default {
     transform: scale(1.02); 
     transition: height 0.5s ease-in-out;
     transition-duration: 0.5s;
-    padding: 0 20px;
-    font-size: larger;
 }
 
 header{
@@ -84,7 +84,7 @@ nav {
     width: 100%;
     z-index: 9999;
     transition: transform 0.2s ease-in-out;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 nav ul{
     list-style: none;

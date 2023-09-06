@@ -11,6 +11,11 @@
   },
   "dependencies": {
     "@firebase/firestore": "^3.10.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "core-js": "^3.8.3",
@@ -51,7 +56,7 @@
     ],
     "parserOptions": {
       "parser": "@babel/eslint-parser",
-      "requireConfigFile":false
+      "requireConfigFile": false
     },
     "rules": {
       "vue/multi-word-component-names": 0
