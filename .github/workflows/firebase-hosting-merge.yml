@@ -13,19 +13,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - run: npm ci
 
       - name: Build project
         run: npm run build
 
-      - name: Start Node server
-        run: node server/index.js
+      - name: Start Node server in the background
+        run: |
+          npm install -g forever
+          forever start server/index.js
 
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BALLTHATTHANA_APP }}'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BALLTHATTHANA_APP }}
           channelId: live
           projectId: ballthatthana-app
+
+      - name: Stop Node server
+        run: |
+          npm install -g forever
+          forever stop server/index.js || true
