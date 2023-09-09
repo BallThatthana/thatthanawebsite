@@ -7,10 +7,10 @@
             >Logout
         </button>
     </div> -->
-    <header class="h-18">
-        <nav id="navbar" class="flex justify-between place-items-center" :class="{ scrolled: isScrolled }">
-            <span class="pl-5 font-semibold text-white"><a href="/">Ball Thatthana</a></span>
-            <ul>
+    <header :class="{ scrolled: isScrolled }">
+        <nav id="navbar">
+            <span class="font-semibold text-white text-xl"><a href="/">Ball Thatthana Portfolio</a></span>
+            <!-- <ul>
                 <li>
                     <router-link class="nav-link transition duration-500 ease-in-out hover:text-white hover:bg-black" :to="{name: 'home'}">
                         Home
@@ -21,7 +21,7 @@
                        Contact
                    </router-link>
                 </li>
-            </ul>
+            </ul> -->
         </nav>
     </header>
 </template> 
@@ -62,31 +62,32 @@ export default {
 <style scoped>
 
 .scrolled {
-    top: 0;
-    background-color: rgba(0,0,0,0.8);
-    transform: scale(1.02); 
-    transition: height 0.5s ease-in-out;
-    transition-duration: 0.5s;
+    background-color: rgba(0, 0, 0, 0.705);
+    transform: scale(1.1); 
+    transition: height 2s ease-in-out;
 }
 
 header{
+    height: 50px;
     background-color:black;
     width: 100%;
+    display: flex;
     justify-content: center;
+    flex-flow: wrap;
     align-items: center;
-    margin: 0 auto;
+    position: fixed;
+    z-index: 1;
+    gap: 10px;
 }
 
-nav {
+#nav-bar {
     top: 0;
-    position: fixed;
     background-color:black;
     width: 100%;
     z-index: 9999;
-    transition: transform 0.2s ease-in-out;
-    padding: 0 10px;
 }
-nav ul{
+
+/* nav ul{
     list-style: none;
     margin: 0;
     padding: 0;
@@ -102,6 +103,6 @@ nav li a {
   text-decoration: none;
   color: white;
   cursor: pointer;
-}
+} */
 
 </style>

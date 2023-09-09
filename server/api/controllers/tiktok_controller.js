@@ -14,4 +14,4 @@ const send_conversion_api = async function (req, res, next) {
 // Define routes using the middleware function
 router.get('/conversion', send_conversion_api);
 
-module.exports = router;
+module.exports = {send_conversion_api};

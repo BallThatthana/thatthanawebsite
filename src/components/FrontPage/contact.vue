@@ -1,11 +1,11 @@
 <template>
-    <Topbar/>
     <div v-if="!loading"
-        class="border rounded-xl shadow-xl mt-20 pt-8 p-6 w-2/3 sm:w-1/2 lg:w-1/3 m-auto">
-        <h3 class="text-base sm:text-xl font-semibold"> Any questions, please fill following form to contact me.
+        class="contact-container border rounded-xl shadow-xl mt-20 mb-16 pt-8 p-6 sm:w-2/3 md:w-1/2 mx-auto">
+        <h3 class="text-base sm:text-xl font-semibold mb-6"> Any questions, please fill following form to contact me.
         </h3>
 
-        <div class="signin_container p_top mt-4 py-4 px-2 m-auto">
+        <div class="form-card">
+            <div class="signin_container p_top mt-4 py-4 px-2 m-auto">
             <form @submit.prevent="sendEmail">
 
                 <div class="form-group">
@@ -57,8 +57,9 @@
                     class="btn mb-3 btn-block mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 > Send message
                 </button>
-                <hr/>
+                <div>PS. This form is built with Node Express and Nodemailer</div>
             </form>
+        </div>
         </div>
     </div>
     <div v-else>
@@ -74,14 +75,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import Topbar from './topbar.vue'
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
 
 export default {
     components: {
-        Topbar,
         FlowerSpinner
     },
     computed:{

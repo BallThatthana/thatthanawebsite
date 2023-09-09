@@ -11,9 +11,9 @@ app.use(cors({
 }));
 
 // Routes
-//const tiktokRoute = require('./api/routes/tiktok.route');
+// const tiktokRoute = require('./api/routes/tiktok.route');
 const emailRoute = require('./api/routes/email.route'); // Add this line
-//app.use('/api', tiktokRoute(express));
+// app.use('/api', tiktokRoute);
 app.use('/api', emailRoute); // Use the email route
 
 // Start the server

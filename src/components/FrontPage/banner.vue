@@ -1,15 +1,16 @@
 <template>
 <div id="banner-container" class="min-h-[460px] container-fluid w-full flex flex-col xs:flex-row xs:items-center md:flex-row md:items-center justify-center font-bold">
-    <div class="mx-auto overflow-hidden">
-        <img id="my-image" class="mx-auto w-1/2 md:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image">
-        <h2 class="text-center text-white text-xl sm:text-2xl">Ball Thatthana</h2>
-        <!-- <h3 class="text-white">Frontend Developer</h3> -->
+    <div class="image-div mx-auto overflow-hidden" @mouseenter="startAnimation" @mouseleave="stopAnimation">
+        <img id="my-image" class="mx-auto w-1/2 xs:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image"
+        ref="cardImg">
+        <h2 class="text-center text-white text-xl sm:text-2xl md:text-3xl m-0">Ball Thatthana</h2>
+        <h3 class="text-white text-lg sm:text-xl">Web Developer</h3>
     </div>
     <div class="pb-6">
         <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Experienced in web development, digital marketing and content creation. 
-            Several years of experience in the hospitality industry.</p>
+            Several years of prior experience in the hospitality industry.</p>
         <br>
-        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Willing to be a part of a great team to contribute to a meaningful project.</p>
+        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Willing to learn new stuffs and be a part of a great team to contribute to a meaningful project.</p>
     </div>
 </div>
 
@@ -18,10 +19,40 @@
 </template>
 <script>
 
-export default{
+export default {
+  methods: {
+    // startAnimation() {
+    //   const img = this.$refs.cardImg;
+    //   img.style.transition = 'transform 1s ease-out';
+    //   this.moveImage(img);
+    // },
+    // stopAnimation() {
+    //   const img = this.$refs.cardImg;
+    //   img.style.transition = 'transform 1s ease-out';
+    //   img.style.transform = 'translate(0, 0)';
+    // },
+    // moveImage(img) {
+    //   const maxX = window.innerWidth - img.clientWidth;
+    //   const maxY = window.innerHeight - img.clientHeight;
 
-}
+    //   const maxOffsetX = Math.min(maxX, 100);
+    //   const maxOffsetY = Math.min(maxY, 100);
 
+    //   const randomX = Math.random() * maxOffsetX;
+    //   const randomY = Math.random() * maxOffsetY;
+
+    //   img.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+    //   img.addEventListener('transitionend', () => {
+    //     img.style.transition = 'none';
+    //     setTimeout(() => {
+    //       img.style.transition = 'transform 1s ease-out';
+    //       this.moveImage(img);
+    //     }, 0);
+    //   }, { once: true });
+    // },
+  },
+};
 </script>
 <style scoped>
 
@@ -34,7 +65,7 @@ export default{
     background-repeat: no-repeat;
   }
 
-  @media (max-width: 720px){
+  @media (max-width:720px){
     #banner-container{
         height: 540px;
     }
@@ -43,8 +74,38 @@ export default{
   @media (max-width: 390px){
     #banner-container{
         height: 360px;
+        padding: 60px 10px 0;
     }
   }
+
+.my-image {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.image-div:hover .card-img {
+    animation: moveImage 3s linear infinite;
+}
+
+@keyframes moveImage {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(20px, 20px);
+    }
+    50% {
+        transform: translate(0, 0);
+    }
+    75% {
+        transform: translate(-20px, -20px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
 /* 
   @media (max-width: 837px){
     h2 {
