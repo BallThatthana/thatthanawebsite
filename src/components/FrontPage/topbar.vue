@@ -50,7 +50,7 @@ export default {
     },
     methods:{
         handleScroll(){ 
-            this.isScrolled = window.scrollY> 0;
+            this.isScrolled = window.scrollY > 0;
         },
         onLogOut(){
             this.$store.dispatch('signOut')
