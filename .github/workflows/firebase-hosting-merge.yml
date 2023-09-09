@@ -22,11 +22,10 @@ jobs:
         run: npm run build
 
       - name: Start Node server in the background
-        run: node server/index.js
-          
-          # |
-          # npm install -g forever
-          # forever start server/index.js
+        run: 
+          |
+          npm install -g forever
+          forever start server/index.js
 
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
