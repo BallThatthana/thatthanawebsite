@@ -10,7 +10,7 @@
         <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Experienced in web development, digital marketing and content creation. 
             Several years of prior experience in the hospitality industry.</p>
         <br>
-        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Willing to learn new stuffs and be a part of a great team to contribute to a meaningful project.</p>
+        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Love learning new stuffs to improve myself. Eager to be a part of a great team and contribute to meaningfel projects.</p>
     </div>
 </div>
 
