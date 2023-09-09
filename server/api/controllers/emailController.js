@@ -10,8 +10,8 @@ async function sendEmail(req, res) {
     service: 'gmail',
     secure: false,
     auth: {
-      user: "thatthana.d@gmail.com", //email
-      pass: "akkwlwfihricgnqy", //password
+      user: process.env.MAIL_USER, //email
+      pass: process.env.MAIL_PASSWORD, //password
     },
   });
 

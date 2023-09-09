@@ -3,7 +3,7 @@
      <Banner/>
      <Social/>
      <Portfolio/>
-     <Contact_Form/>
+     <!-- <Contact_Form/> -->
      <Footer/>
  </template>
  
@@ -14,7 +14,7 @@
  import Portfolio from './portfolio.vue'
  import Footer from './footer.vue'
  import Social from './social-icon.vue'
- import Contact_Form from './contact.vue'
+//  import Contact_Form from './contact.vue'
  
  export default {
      components:{
@@ -23,7 +23,7 @@
          Portfolio,
          Footer,
          Social,
-         Contact_Form
+        //  Contact_Form
      },
      computed:{
          ...mapGetters(['isAuth']),
