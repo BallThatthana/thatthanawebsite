@@ -104,7 +104,7 @@ export default {
        async sendEmail(){
             try {  
                 const { name, email, message } = this.form
-                await axios.post('http://localhost:5001/ballthatthana-app/us-central1/sendEmail', {
+                await axios.post('https://ballthatthana-app.web.app/ballthatthana-app/us-central1/sendEmail', {
                     name,
                     email,
                     text: message
