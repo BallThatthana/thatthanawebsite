@@ -104,23 +104,28 @@ export default {
        async sendEmail(){
             try {  
                 const { name, email, message } = this.form
-                await axios.post('https://ballthatthana-app.web.app/api/send-email', {
+                await axios.post('http://localhost:5001/ballthatthana-app/us-central1/sendEmail', {
                     name,
                     email,
                     text: message
                 })
+   
+                // if (response.ok) {
                 this.loading = true;
-                showSweetAlert('success', 'ส่งอีเมลเรียบร้อย', false, 1500)
-
-                setTimeout(()=>{
+                showSweetAlert('success', 'Email sent successfully', false, 1500);
+                setTimeout(() => {
                     this.loading = false;
-                    this.$router.push('/')
-                },3000);
+                    this.$router.push('/');
+                }, 3000);
+            //     } else {
+            //   showSweetAlert('error', 'An error occurred', false, 1500);
+            //   this.loading = false;
+            //     }
 
-            } catch(err){
-                showSweetAlert('error', 'มีข้อผิดพลาด', false, 1500)
+            } catch (err) {
+                showSweetAlert('error', 'An error occurred', false, 1500);
                 this.loading = false;
-           }
+            }
         }
     }
 }
