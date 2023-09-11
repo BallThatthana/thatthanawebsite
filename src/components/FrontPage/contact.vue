@@ -78,6 +78,7 @@ import { mapGetters } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
+import router from '@/routes';
 
 export default {
     components: {
@@ -119,7 +120,8 @@ export default {
                         name:'',
                         email:'',
                         text: ''
-                    }
+                    };
+                    router.push('/')
                 }, 3000);
 
             } catch (err) {
