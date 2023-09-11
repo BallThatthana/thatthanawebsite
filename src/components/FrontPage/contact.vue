@@ -115,12 +115,12 @@ export default {
                 showSweetAlert('success', 'Email sent successfully', false, 1500);
                 setTimeout(() => {
                     this.loading = false;
-                    this.$router.push('/');
+                    this.form = {
+                        name:'',
+                        email:'',
+                        text: ''
+                    }
                 }, 3000);
-            //     } else {
-            //   showSweetAlert('error', 'An error occurred', false, 1500);
-            //   this.loading = false;
-            //     }
 
             } catch (err) {
                 showSweetAlert('error', 'An error occurred', false, 1500);

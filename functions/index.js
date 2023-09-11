@@ -62,7 +62,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       from: process.env.OWNER_MAIL,
       to: process.env.OWNER_MAIL,
       subject: 'There is an email from visitor',
-      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\n${text.message}`,
+      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\n${text}`,
     };
 
     // Send the email
