@@ -14,7 +14,7 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 
 const cors = require('cors')({
-  origin: ['https://ballthatthana-app.web.app', 'http://localhost:5000', 'http://127.0.0.1:5000'],
+  origin: ['https://ballthatthana-app.web.app', 'http://localhost:5000', 'http://127.0.0.1:5000' ,'https://us-central1-ballthatthana-app.cloudfunctions.net/sendEmail'],
 });
 
 const transporter = nodemailer.createTransport({
