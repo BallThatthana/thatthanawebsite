@@ -23,8 +23,8 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   secure: false,
   auth: {
-    user: 'thatthana.d@gmail.com',
-    pass: 'qiamgnnfocmqkqde',
+    user: process.env.OWNER_MAIL,
+    pass: process.env.OWNER_PASS
   },
 });
 
@@ -35,7 +35,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 
     // Construct email content for the visitor
     const visitorMail = {
-      from: 'thatthana.d@gmail.com',
+      from: process.env.OWNER_MAIL,
       to: email,
       subject: 'Thank you for your email.',
       text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nBest regards,\nBall Thatthana`,
@@ -54,8 +54,8 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 
     // Send email to yourself
     const myEmailCopy = {
-      from: 'thatthana.d@gmail.com',
-      to: 'thatthana.d@gmail.com',
+      from: process.env.OWNER_MAIL,
+      to: process.env.OWNER_MAIL,
       subject: 'There is an email from visitor',
       text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.`,
     };
