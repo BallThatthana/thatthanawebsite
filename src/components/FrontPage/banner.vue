@@ -7,10 +7,9 @@
         <h3 class="text-white text-lg sm:text-xl">Web Developer</h3>
     </div>
     <div class="pb-6">
-        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Experienced in web development, digital marketing and content creation. 
-            Several years of prior experience in the hospitality industry.</p>
+        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Experiences in web development, digital marketing, content creation.</p>
         <br>
-        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Love learning new stuffs to improve myself. Eager to be a part of a great team and contribute to meaningfel projects.</p>
+        <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Continuous learning and self-improvement. Eager to be a part of a great team and contribute to meaningful projects.</p>
     </div>
 </div>
 
