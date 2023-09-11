@@ -14,7 +14,8 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 
 const cors = require('cors')({
-  origin: ['https://ballthatthana-app.web.app', 'http://localhost:5000', 'http://127.0.0.1:5000' ,'https://us-central1-ballthatthana-app.cloudfunctions.net/sendEmail'],
+    origin: ['http://ballthatthana-app.web.app', 'http://localhost:5000', 'http://127.0.0.1:5000'],
+
 });
 
 const transporter = nodemailer.createTransport({
@@ -29,6 +30,10 @@ const transporter = nodemailer.createTransport({
 });
 
 exports.sendEmail = functions.https.onRequest((req, res) => {
+
+  res.set('Access-Control-Allow-Origin', 'http://ballthatthana-app.web.app');
+  res.set('Access-Control-Allow-Credentials', 'true');
+
   cors(req, res, () => {
     // Extract necessary data (name, email, text) from req.body
     const { name, email, text } = req.body;
@@ -57,7 +62,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       from: process.env.OWNER_MAIL,
       to: process.env.OWNER_MAIL,
       subject: 'There is an email from visitor',
-      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.`,
+      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\n${text.message}`,
     };
 
     // Send the email
