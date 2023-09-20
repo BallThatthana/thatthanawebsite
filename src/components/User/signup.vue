@@ -1,36 +1,36 @@
 <template>
-    <div>
-        <div v-if="showLogin" class="border rounded-xl shadow-xl mt-10 pt-8 p-6 w-2/3 md:w-1/3 m-auto">
+    <div class="modal-overlay" @click="closeModal"></div>
+        <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto">
+           <div>
             <h3 class="text-base sm:text-xl font-semibold"> Please 
                 <span v-text="!type ? 'sign in':'sign up'"></span>
-                to see my personal information.
+                to download my CV.
             </h3>
-
+            <p class="text-center mb-4">(using Firebase Authentication)</p>
+           </div>
             <div class="signin_container p_top mt-4 py-4 px-2 m-auto">
                 <form @submit.prevent="onSubmit">
-
-
                     <div class="form-group">
-                            <input
-                                name="email" 
-                                type="text"
-                                id="email"
-                                class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Enter your email"
-                                v-model="values.email"
+                        <input
+                            name="email" 
+                            type="text"
+                            id="signin-email"
+                            class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter your email"
+                            v-model="values.email"
                             />
                     </div>
 
 
                     <div class="form-group">
-                            <input
-                                name="password"
-                                type="password"
-                                id="password"
-                                class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Enter your password"
-                                v-model="values.password"
-                            />
+                        <input
+                            name="password"
+                            type="password"
+                            id="password"
+                            class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Enter your password"
+                            v-model="values.password"
+                        />
                     </div>
 
                     <button
@@ -54,7 +54,6 @@
                 </form>
             </div>
         </div>
-    </div>
 </template>
 
 <script>
@@ -62,6 +61,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert.js';
 
 export default {
+    emits: ['close'],
     computed:{
         ...mapGetters(['isAuth']),
         showLogin(){
@@ -91,7 +91,9 @@ export default {
     // },
     methods:{
         ...mapActions(['signin', 'signup', 'signOut']),
-        
+        closeModal() {
+            this.$emit('close');
+        },
         async onSubmit(){
            try {
                 if(!this.type){
@@ -99,7 +101,7 @@ export default {
                     await this.$store.dispatch('signin', this.values);
                 } else {
                     //sign up
-                await this.$store.dispatch('signup', this.values);
+                    await this.$store.dispatch('signup', this.values);
                 }
 
            } catch(err){
@@ -108,7 +110,7 @@ export default {
                     err.response.data && 
                     err.response.data.error.message === 'INVALID_PASSWORD'
                     ) {
-                    showSweetAlert('error', 'รหัสไม่ถูกต้อง', false, 1500)
+                    showSweetAlert('error', 'wrong password', false, 1500)
                 } else {
                     showSweetAlert('error', err , false, 1500)
                 }
@@ -122,3 +124,23 @@ export default {
     }
 }
 </script>
+<style scoped>
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  /* Your existing modal styles */
+}
+</style>

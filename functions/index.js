@@ -44,7 +44,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       from: process.env.OWNER_MAIL,
       to: email,
       subject: 'Thank you for your email.',
-      text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nBest regards,\nBall Thatthana`,
+      text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nMessage: ${text}\n\nBest regards,\nBall Thatthana`,
     };
 
     // Send email to the visitor
@@ -63,7 +63,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       from: process.env.OWNER_MAIL,
       to: process.env.OWNER_MAIL,
       subject: 'There is an email from visitor',
-      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\n${text}`,
+      text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\nMessage: ${text}`,
     };
 
     // Send the email

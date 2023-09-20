@@ -7,9 +7,24 @@
             >Logout
         </button>
     </div> -->
-    <header :class="{ scrolled: isScrolled }">
+    <div class ="header" :class="{ scrolled: isScrolled }">
         <nav id="navbar">
-            <span class="font-semibold text-white text-xl"><a href="/">Ball Thatthana Portfolio</a></span>
+            <div class="font-semibold text-white text-base sm:text-xl"><a href="/">Ball Thatthana Portfolio</a></div>
+            <div>
+                <span v-if="!clickSignUp && !isAuth" 
+                @click="clickToSignUp"
+                 class="font-semibold text-white text-base sm:text-xl">Sign Up
+                </span>
+                <div v-if="clickSignUp">
+                    <div class="fixed inset-0 flex items-center justify-center-index-9999">
+                        <SignupModal @close="closeModal"/>
+                    </div>
+                </div>
+                <span v-if="!clickSignUp && isAuth" 
+                    @click="onLogOut"
+                    class="font-semibold text-white text-base sm:text-xl">Logout
+                </span>
+            </div>
             <!-- <ul>
                 <li>
                     <router-link class="nav-link transition duration-500 ease-in-out hover:text-white hover:bg-black" :to="{name: 'home'}">
@@ -23,15 +38,16 @@
                 </li>
             </ul> -->
         </nav>
-    </header>
+    </div>
 </template> 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import SignupModal from '../User/signup.vue'
 //import Home from './home.vue'
 
 export default {
     components: {
-        //Home,
+        SignupModal
     },
     computed: {
         ...mapGetters(['isAuth']),
@@ -39,7 +55,8 @@ export default {
     },
     data(){
         return{
-        isScrolled: false
+        isScrolled: false,
+        clickSignUp: false
         }
     },
     mounted(){
@@ -49,6 +66,12 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
     },
     methods:{
+        closeModal(){
+            this.clickSignUp = false;
+        },
+        clickToSignUp(){
+            this.clickSignUp = !this.clickSignUp
+        },
         handleScroll(){ 
             this.isScrolled = window.scrollY > 0;
         },
@@ -63,29 +86,35 @@ export default {
 
 .scrolled {
     background-color: rgba(0, 0, 0, 0.705);
-    transform: scale(1.1); 
     transition: height 2s ease-in-out;
+    padding: 20px;
+    justify-content: space-around;
+    position: fixed;
 }
 
-header{
-    height: 50px;
+.header{
+    height: 60px;
     background-color:black;
     width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-flow: wrap;
-    align-items: center;
-    position: fixed;
     z-index: 1;
     gap: 10px;
+    padding: 20px;
+    justify-content: center;
+    overflow: hidden;
+    margin: auto;
 }
 
-#nav-bar {
-    top: 0;
-    background-color:black;
+#navbar {
     width: 100%;
     z-index: 9999;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    margin: auto;
 }
+
 
 /* nav ul{
     list-style: none;

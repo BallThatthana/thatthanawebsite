@@ -1,27 +1,27 @@
 import { createRouter, createWebHistory } from "vue-router";
 //import store from './Store/index.js';
 import Home from './components/FrontPage/home.vue';
-import Contact from './components/FrontPage/contact.vue';
-import Login from './components/User/signup.vue';
+// import Contact from './components/FrontPage/contact.vue';
+// import Login from './components/User/signup.vue';
 
 const routes = [
   {
     path: '/',
     component: Home,
     name: 'home',
-    meta: { requiresAuth: true },
+    // meta: { requiresAuth: true },
   },
-  {
-    path: '/login',
-    component: Login,
-    name: 'login',
-  },
-  { 
-    path: '/contact', 
-    component: Contact, 
-    name: 'contact',
-    meta: { requiresAuth: true },
-  }
+  // {
+  //   path: '/login',
+  //   component: Login,
+  //   name: 'login',
+  // },
+  // { 
+  //   path: '/contact', 
+  //   component: Contact, 
+  //   name: 'contact',
+  //   meta: { requiresAuth: true },
+  // }
 ];
 
 const router = createRouter({

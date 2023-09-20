@@ -9,7 +9,7 @@
     </div> -->
     <footer class="bottom-0 w-full bg-gray-800 text-white">
         <div id="footer" class="flex justify-between place-items-center">
-            <p class="py-2 px-4 font-semibold text-white m-auto xs:text-xs sm:text-base"><a href="/">Built with Vue JS and Tailwind Css</a></p>
+            <p class="py-2 px-4 font-semibold text-white m-auto xs:text-xs sm:text-base"><a href="/">Built with Vue and Tailwind & Firebase</a></p>
             <!-- <ul>
                 <li>
                     <a href="/" class="transition duration-500 ease-in-out hover:text-white hover:bg-black">Home</a>

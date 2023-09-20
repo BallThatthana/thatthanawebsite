@@ -1,9 +1,10 @@
 <template>
 <div id="banner-container" class="min-h-[460px] container-fluid w-full flex flex-col xs:flex-row xs:items-center md:flex-row md:items-center justify-center font-bold">
-    <div class="image-div mx-auto overflow-hidden" @mouseenter="startAnimation" @mouseleave="stopAnimation">
+    <div class="image-div mx-auto overflow-hidden"> 
+      <!-- @mouseenter="startAnimation" @mouseleave="stopAnimation" -->
         <img id="my-image" class="mx-auto w-1/2 xs:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image"
         ref="cardImg">
-        <h2 class="text-center text-white text-xl sm:text-2xl md:text-3xl m-0">Ball Thatthana</h2>
+        <h2 class="text-center text-white text-2xl md:text-3xl m-0">Ball Thatthana</h2>
         <h3 class="text-white text-lg sm:text-xl">Web Developer</h3>
     </div>
     <div class="pb-6">
@@ -56,12 +57,15 @@ export default {
 <style scoped>
 
   #banner-container {
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgb(0,0,0,0.4)), url("https://wallpaperaccess.com/full/442861.jpg");
+    margin-top: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url("https://wallpaperaccess.com/full/442861.jpg");
+    /* background-image: linear-gradient(rgba(0,0,0,0.7), rgb(0,0,0,0.4)), url("https://wallpaperaccess.com/full/442861.jpg"); */
     background-size: cover;
-    background-position: bottom center;
+    background-position: center center;
     height: 720px;
     background-attachment: fixed;
     background-repeat: no-repeat;
+    width: 100%;
   }
 
   @media (max-width:720px){
@@ -78,12 +82,12 @@ export default {
   }
 
 .my-image {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     transition: transform 0.3s;
 }
 
-.image-div:hover .card-img {
+/* .image-div:hover .card-img {
     animation: moveImage 3s linear infinite;
 }
 
@@ -103,7 +107,7 @@ export default {
     100% {
         transform: translate(0, 0);
     }
-}
+} */
 
 /* 
   @media (max-width: 837px){
