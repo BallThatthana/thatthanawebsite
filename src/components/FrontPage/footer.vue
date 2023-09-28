@@ -59,25 +59,8 @@ export default {
 </script>
 <style scoped>
 
-.scrolled {
-    top: 0;
-    background-color: rgba(0,0,0,0.8);
-    transform: scale(1.02); 
-    transition: height 0.5s ease-in-out;
-    transition-duration: 0.5s;
-    padding: 0 20px;
-    font-size: larger;
-}
-
-header{
-    background-color:black;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-}
-
 #footer {
+    bottom: 0;
     background-color:black;
     padding: 20px 0;
     width: 100%;

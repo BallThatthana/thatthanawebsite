@@ -1,10 +1,12 @@
 <template>
-    <div v-if="!isAuth">
-        <div class="modal-overlay" @click="closeModal"></div>
+    <div>
+        <div @click="onCloseModal" class="modal-overlay"></div>
         <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto">
+        <!-- <div class="modal-overlay" @click="onCloseModal"></div>
+        <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto"> -->
            <div>
-            <h3 class="text-base sm:text-xl font-semibold"> 
-                {{ authText }}
+            <h3 class="text-base sm:text-xl font-semibold">
+               {{ variableTitle() }}
             </h3>
             <p class="text-center mb-4">(using Firebase Authentication)</p>
            </div>
@@ -17,7 +19,8 @@
                             id="signin-email"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your email"
-                            v-model="values.email"
+                            v-model="form.email"
+                            required
                             />
                     </div>
 
@@ -28,7 +31,8 @@
                             id="password"
                             class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Enter your password"
-                            v-model="values.password"
+                            v-model="form.password"
+                            required
                         />
                     </div>
 
@@ -63,67 +67,64 @@ import { showSweetAlert } from '../../Store/utils/sweetalert.js';
 export default {
     emits: ['close'],
     computed:{
-        ...mapGetters(['isAuth','intendedRoute']),
-        showLogin(){
-            return !this.isAuth;
-        },
-        authText(){
-            if(this.$route.path === '/'){
-                return !this.type ? 'Sign in to download my CV':'Sign up to download my CV';
-            } else if(this.$route.path === '/login'){
-                return 'Please '+ !this.type ? 'Sign in to continue':'Sign up to continue';
-            } else {
-                return '';
-            }
-        },
+        ...mapGetters(['isAuth', 'toggleShowLogin']),
     },
     data(){
         return {
-            type:false,
+            type: false,
             signInAndSignUpComplete: false,
-            values: {
+            form: {
                 email:'',
                 password:'',
             },
         }
     },
-    // watch: {
-    //     signInAndSignUpComplete(value){
-    //         if(value && !this.type){
-    //             showSweetAlert('success', 'เข้าสู่ระบบสำเร็จ', false, 1500);
-    //         } else if(value && this.type){
-    //             showSweetAlert('success', 'ลงทะเบียนสำเร็จ', false, 1500);
-    //         } else if(!value){
-    //             showSweetAlert('success', 'ออกจากระบบสำเร็จ', false, 1500);
-    //         }
-    //     }
     // },
     methods:{
-        ...mapActions(['signin', 'signup', 'signOut']),
-        closeModal() {
-            this.$emit('close');
+        ...mapActions(['signin', 'signup', 'logOut', 'changeLoginState', 'closeLoginModal']),
+        variableTitle(){
+            let type = this.type
+            const currentURL = window.location.href;
+            const isLoginPage = currentURL.endsWith('/login')
+            if(!isLoginPage){
+                if(!type){
+                    return `Please sign-in to download my CV`
+                } else{
+                    return `Please sign-up to download my CV`
+                }
+            } else if(isLoginPage){
+                if(!type){
+                    return `Please sign-in to continue`
+                } else {
+                    return `Please sign-up to continue`
+                }
+            }
+        },
+        onCloseModal() {
+            // this.$store.commit('closeLogin')
+            this.$emit('close')
         },
         async onSubmit(){
            try {
                 if(!this.type){
                     // sign in
-                    await this.$store.dispatch('signin', this.values)
-                    // Inside your login component logic after successful login
-                    .then(() => {
-                    // Redirect back to the intended route or to the home page
-                    const intendedRoute = this.intendedRoute || '/';
-                    this.$router.push(intendedRoute);
-                    });
+                    await this.$store.dispatch('signin', this.form );
+                    this.onCloseModal();
+                    if (this.$store.getters.isAuth) {
+                        const redirectFrom = this.$route.query.redirectFrom || '/';
+                        this.$router.push(redirectFrom);
+                    }
+                    console.log(this.form, 'form');
                 } else {
                     //sign up
-                    await this.$store.dispatch('signup', this.values)
-                    .then(() => {
-                    // Redirect back to the intended route or to the home page
-                    const intendedRoute = this.intendedRoute || '/';
-                    this.$router.push(intendedRoute);
-                    });
+                    await this.$store.dispatch('signup', this.form );
+                    this.onCloseModal();
+                    if (this.$store.getters.isAuth) {
+                        const redirectFrom = this.$route.query.redirectFrom || '/';
+                        this.$router.push(redirectFrom);
+                    }
+                    //this.$router.push(this.$route.query.redirectFrom || '/')
                 }
-
            } catch(err){
                 if (
                     err.response && 
@@ -138,7 +139,9 @@ export default {
            }
         },
         onLogOut(){
-            this.$store.dispatch('signOut')
+            console.log('Logging out...')
+            this.$store.dispatch('logOut')
+            this.$store.commit('closeLogin')
             //this.signInAndSignUpComplete = false;
         }
     }
