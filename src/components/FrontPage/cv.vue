@@ -1,4 +1,5 @@
 <template>
+ <div>
     <div v-if="isAuth" class="container-fluid btn-container">
         <a  class="btn-cv bg-blue-500 hover:bg-blue-400" 
             href="https://drive.google.com/file/d/1bskBU7wBVwByDEI1zywp9XR9iyIO64IF/view?usp=sharing" 
@@ -6,6 +7,10 @@
             Download my CV
         </a>
     </div>
+    <div v-else class="container-fluid btn-container">
+        <p class="text-2xl sm:text-3xl md:text-4xl font-bold">Signup to download my CV</p>
+    </div>
+ </div>
 </template>
 <script>
 import { mapGetters} from 'vuex';

@@ -1,10 +1,10 @@
 <template>
-    <div class="modal-overlay" @click="closeModal"></div>
+    <div v-if="!isAuth">
+        <div class="modal-overlay" @click="closeModal"></div>
         <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto">
            <div>
-            <h3 class="text-base sm:text-xl font-semibold"> Please 
-                <span v-text="!type ? 'sign in':'sign up'"></span>
-                to download my CV.
+            <h3 class="text-base sm:text-xl font-semibold"> 
+                {{ authText }}
             </h3>
             <p class="text-center mb-4">(using Firebase Authentication)</p>
            </div>
@@ -20,7 +20,6 @@
                             v-model="values.email"
                             />
                     </div>
-
 
                     <div class="form-group">
                         <input
@@ -54,6 +53,7 @@
                 </form>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -63,10 +63,19 @@ import { showSweetAlert } from '../../Store/utils/sweetalert.js';
 export default {
     emits: ['close'],
     computed:{
-        ...mapGetters(['isAuth']),
+        ...mapGetters(['isAuth','intendedRoute']),
         showLogin(){
             return !this.isAuth;
-        }
+        },
+        authText(){
+            if(this.$route.path === '/'){
+                return !this.type ? 'Sign in to download my CV':'Sign up to download my CV';
+            } else if(this.$route.path === '/login'){
+                return 'Please '+ !this.type ? 'Sign in to continue':'Sign up to continue';
+            } else {
+                return '';
+            }
+        },
     },
     data(){
         return {
@@ -75,7 +84,7 @@ export default {
             values: {
                 email:'',
                 password:'',
-            }
+            },
         }
     },
     // watch: {
@@ -98,10 +107,21 @@ export default {
            try {
                 if(!this.type){
                     // sign in
-                    await this.$store.dispatch('signin', this.values);
+                    await this.$store.dispatch('signin', this.values)
+                    // Inside your login component logic after successful login
+                    .then(() => {
+                    // Redirect back to the intended route or to the home page
+                    const intendedRoute = this.intendedRoute || '/';
+                    this.$router.push(intendedRoute);
+                    });
                 } else {
                     //sign up
-                    await this.$store.dispatch('signup', this.values);
+                    await this.$store.dispatch('signup', this.values)
+                    .then(() => {
+                    // Redirect back to the intended route or to the home page
+                    const intendedRoute = this.intendedRoute || '/';
+                    this.$router.push(intendedRoute);
+                    });
                 }
 
            } catch(err){
@@ -133,8 +153,9 @@ export default {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 9998;
+  z-index: 999;
 }
+
 .modal-container {
   position: fixed;
   top: 50%;
