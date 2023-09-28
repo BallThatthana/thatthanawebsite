@@ -1,63 +1,64 @@
 <template>
-    <!-- <div v-if="isAuth" class="text-center text-xs pb-2">
-        <span>You are signed In </span>
-        <button 
-            @click="onLogOut"
-            class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Logout
-        </button>
-    </div> -->
-    <div class ="header" :class="{ scrolled: isScrolled }">
-        <nav id="navbar">
-            <div class="font-semibold text-white text-base sm:text-xl"><a href="/">Ball Thatthana Portfolio</a></div>
-            <div>
-                <span v-if="!clickSignUp && !isAuth" 
-                @click="clickToSignUp"
-                 class="font-semibold text-white text-base sm:text-xl">Sign Up
-                </span>
-                <div v-if="clickSignUp">
-                    <div class="fixed inset-0 flex items-center justify-center-index-9999">
-                        <SignupModal @close="closeModal"/>
+    <div class="header" :class="{ scrolled: isScrolled }">
+      <nav id="navbar">
+        <div class="font-semibold text-white text-base sm:text-xl">
+          <router-link :to="{ name: 'home' }">Ball Thatthana</router-link>
+        </div>
+        <div class="nav-right-buttons">
+            <div class="font-semibold text-white text-sm sm:text-lg px-2">
+                <router-link :to="{ name: 'posts' }">Dashboard</router-link>
+            </div>
+            <div class="auth-btn hide px-2">
+                <!-- Render content based on the value of isAuth -->
+                <div>
+                    <!-- Display content for authenticated users -->
+                    <div class="text-center text-xs pb-2">
+                    <button 
+                        v-if="isAuth"
+                        @click="onLogOut"
+                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                        Log out
+                    </button>
+                    <button
+                        v-if="!isAuth"
+                        @click="clickToSignUp"
+                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        :to="{name: 'login'}"
+                        >
+                        My CV
+                    </button>
                     </div>
                 </div>
-                <span v-if="!clickSignUp && isAuth" 
-                    @click="onLogOut"
-                    class="font-semibold text-white text-base sm:text-xl">Logout
-                </span>
             </div>
-            <!-- <ul>
-                <li>
-                    <router-link class="nav-link transition duration-500 ease-in-out hover:text-white hover:bg-black" :to="{name: 'home'}">
-                        Home
-                    </router-link>
-                </li>
-                <li>
-                    <router-link class="nav-link" :to="{name: 'contact'}"> 
-                       Contact
-                   </router-link>
-                </li>
-            </ul> -->
-        </nav>
+       </div>
+      </nav>
     </div>
-</template> 
+  </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import SignupModal from '../User/signup.vue'
+//import SignupModal from '../User/signup.vue'
 //import Home from './home.vue'
 
 export default {
     components: {
-        SignupModal
+        //SignupModal
     },
     computed: {
-        ...mapGetters(['isAuth']),
-        ...mapActions(['signOut'])
+        ...mapGetters(['isAuth', 'toggleShowLogin']),
+        ...mapActions(['logOut'])
     },
     data(){
         return{
         isScrolled: false,
-        clickSignUp: false
+        loading: true, // Initialize loading flag
+        // clickSignUp: false
         }
+    },
+    async created() {
+    // Dispatch the checkAuthStatus action and wait for it to complete
+        //await this.$store.dispatch('checkAuthStatus');
+        this.loading = false; // Set loading flag to false when authentication state is checked
     },
     mounted(){
         window.addEventListener('scroll', this.handleScroll)
@@ -67,23 +68,34 @@ export default {
     },
     methods:{
         closeModal(){
-            this.clickSignUp = false;
+            this.$store.commit('closeLogin');
         },
+        // clickToSignUp(){
+        //     this.$store.commit('handleLogin')
+        // },
         clickToSignUp(){
-            this.clickSignUp = !this.clickSignUp
+            this.$router.push('/login')
         },
         handleScroll(){ 
             this.isScrolled = window.scrollY > 0;
         },
         onLogOut(){
-            this.$store.dispatch('signOut')
-            //this.signInAndSignUpComplete = false;
+            this.$store.dispatch('logOut')
+            this.$store.commit('closeLogin')
         }
     }
 }
 </script>
 <style scoped>
-
+/* .hide {
+    display: none;
+} */
+.nav-right-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 .scrolled {
     background-color: rgba(0, 0, 0, 0.705);
     transition: height 2s ease-in-out;
@@ -91,8 +103,17 @@ export default {
     justify-content: space-around;
     position: fixed;
 }
-
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
 .header{
+    top: 0;
     height: 60px;
     background-color:black;
     width: 100%;
@@ -105,7 +126,7 @@ export default {
 }
 
 #navbar {
-    width: 100%;
+    max-width: 1300px;
     z-index: 9999;
     display: flex;
     flex-direction: row;
