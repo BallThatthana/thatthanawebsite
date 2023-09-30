@@ -8,16 +8,16 @@
                     <font-awesome-icon icon="mobile-screen-button" />
             </div>
         </div> -->
-        <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
+        <div class="mx-auto xs:mx-10 sm:mx-16 text-xl sm:text-3xl md:text-5xl social-icon">
             <a href="tel:+66830644271" target="_blank">PHONE</a>
         </div>
-        <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
+        <div class="mx-auto xs:mx-10 sm:mx-16 text-xl sm:text-3xl md:text-5xl social-icon">
             <a href="mailto:thatthana.d@gmail.com" target="_blank">MAIL</a>
         </div>
-        <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
+        <div class="mx-auto xs:mx-10 sm:mx-16 text-xl sm:text-3xl md:text-5xl social-icon">
             <a href="https://github.com/BallThatthana" target="_blank">GITHUB</a>
         </div>
-        <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
+        <div class="mx-auto xs:mx-10 sm:mx-16 text-xl sm:text-3xl md:text-5xl social-icon">
             <a href="https://youtube.com/@BallEcomThatthana" target="_blank">YOUTUBE</a>
         </div>
     </div>
