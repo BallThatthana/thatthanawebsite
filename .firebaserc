@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "vue-practise-project"
-  }
+    "default": "ballthatthana-app",
+    "ballportfolio": "ballthatthana-app"
+  },
+  "targets": {},
+  "etags": {}
 }
