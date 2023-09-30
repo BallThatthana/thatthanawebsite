@@ -1,10 +1,10 @@
 <template>
     <div>
-       <Banner/>
-       <Social/>
-       <CV/>
-       <Portfolio/>
-       <Contact_Form/>
+       <Banner></Banner>
+       <Social></Social>
+       <CV></CV>
+       <Portfolio></Portfolio>
+       <Contact_Form></Contact_Form>
        <Footer></Footer>
    </div>
 </template>

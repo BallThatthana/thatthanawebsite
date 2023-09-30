@@ -9,7 +9,7 @@
           />
     </div>
     <div v-else>
-      <TopBar></TopBar>
+      <top-bar></top-bar>
       <router-view></router-view>
     </div>
   </div>
