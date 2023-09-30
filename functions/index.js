@@ -14,9 +14,9 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 
 const cors = require('cors')({
-        origin: ['*'],
-    // origin: ['http://ballthatthana-app.web.app', 'http://localhost:5000', 'http://127.0.0.1:5000'],
-
+          origin: ['https://ballthatthana-app.web.app', 'http://localhost:8080'],
+          methods: ['GET', 'POST'], // Specify the allowed HTTP methods
+          allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
 });
 
 const transporter = nodemailer.createTransport({
@@ -25,14 +25,15 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   secure: false,
   auth: {
-    user: process.env.OWNER_MAIL,
-    pass: process.env.OWNER_PASS
+    user: process.env.VUE_APP_OWNER_MAIL,
+    pass: process.env.VUE_APP_OWNER_PASS
   },
 });
 
 exports.sendEmail = functions.https.onRequest((req, res) => {
 
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    //must set header too!!!
+    res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app, http://localhost');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   cors(req, res, () => {
@@ -41,7 +42,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 
     // Construct email content for the visitor
     const visitorMail = {
-      from: process.env.OWNER_MAIL,
+      from: process.env.VUE_APP_OWNER_MAIL,
       to: email,
       subject: 'Thank you for your email.',
       text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nMessage: ${text}\n\nBest regards,\nBall Thatthana`,
@@ -60,8 +61,8 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 
     // Send email to yourself
     const myEmailCopy = {
-      from: process.env.OWNER_MAIL,
-      to: process.env.OWNER_MAIL,
+      from: process.env.VUE_APP_OWNER_MAIL,
+      to: process.env.VUE_APP_OWNER_MAIL,
       subject: 'There is an email from visitor',
       text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\nMessage: ${text}`,
     };

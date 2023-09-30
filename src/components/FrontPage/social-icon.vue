@@ -9,7 +9,7 @@
             </div>
         </div> -->
         <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
-            <a href="tel:+660830644271">PHONE</a>
+            <a href="tel:+66830644271" target="_blank">PHONE</a>
         </div>
         <div class="mx-auto xs:mx-10 sm:mx-16 text-4xl sm:text-5xl md:text-6xl social-icon">
             <a href="mailto:thatthana.d@gmail.com" target="_blank">MAIL</a>

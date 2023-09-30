@@ -9,6 +9,7 @@
     </div>
     <div class="container-fluid m-auto">
         <h2>Sample Post Page</h2>
+        <p>(Must signin first to post)</p>
         <div class="p-20 lg:w-2/3 m-auto shadow-xl shadow-grey p-6">
             <h3>Post Preview</h3>
             <div class="h-60 border-4 border-black-800 rounded-2xl my-6 m-auto flex content-center">
@@ -51,6 +52,9 @@
                      </button>
                 </div>
             </form>
+        </div>
+        <div class="container mt-4">
+            <h3>Post fetched from Firebase Firestore</h3>
         </div>
         <div class="container">
             <div class="card"
@@ -184,6 +188,7 @@ export default{
                 this.uploadValue = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 });
             } catch (error) {
+                showSweetAlert('error', error, false, 1500)
                 console.error('Upload error:', error);
                 // Handle the error here, e.g., show an error message to the user
             }
@@ -208,6 +213,7 @@ export default{
                     await this.$store.dispatch('postData', post)
                 }
             } catch(err){
+                showSweetAlert('error', err, 1500, false)
                 console.log(err)
             }
         }

@@ -1,10 +1,13 @@
-/* eslint-disable */
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './Store';
 import router from './routes'
 import './assets/style.css'
 import './firebase'
+// import dotenv from 'dotenv'
+
+// // Load environment variables from .env
+// dotenv.config()
 
 /* import the fontawesome core */
 // import { library } from '@fortawesome/fontawesome-svg-core'

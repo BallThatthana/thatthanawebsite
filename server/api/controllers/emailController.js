@@ -3,6 +3,10 @@ const nodemailer = require('nodemailer');
 async function sendEmail(req, res) {
   const { name, email, text } = req.body;
 
+  //must set header too!!!
+  res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app,http://localhost');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
   // Create a nodemailer transporter
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -10,14 +14,14 @@ async function sendEmail(req, res) {
     service: 'gmail',
     secure: false,
     auth: {
-      user: process.env.MAIL_USER, //email
-      pass: process.env.MAIL_PASSWORD, //password
+      user: process.env.VUE_APP_MAIL_USER, //email
+      pass: process.env.VUE_APP_MAIL_PASSWORD, //password
     },
   });
 
   // Construct the email body for visitor
   let visitorMail = {
-    from: process.env.MAIL_USER,
+    from: process.env.VUE_APP_MAIL_USER,
     to: email,
     subject: 'Thank you for your email.',
     text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nBest regards,\nBall Thatthana`,
@@ -36,8 +40,9 @@ async function sendEmail(req, res) {
 
   // send email to me
   let myEmailCopy = {
-    from: process.env.MAIL_USER,
-    to: process.env.MAIL_USER,
+    from: process.env.VUE_APP_MAIL_USER,
+    to: process.env.VUE_APP_MAIL_USER,
+
     subject: 'There is an email from visitor',
     text: `Hi ,\n\nan Email received from ${name} ${email}. Please get back asap.`,
   };

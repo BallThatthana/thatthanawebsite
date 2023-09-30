@@ -88,8 +88,8 @@ const PostModule = {
                 window.location.reload();
                 commit('showLoader');
             } catch(err){
-                console.log(err)
                 showSweetAlert('error', err, false, 1500)
+                console.log(err)
             }
         },
     }
