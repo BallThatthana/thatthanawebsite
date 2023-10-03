@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import store from './Store/index.js';
 import Home from './components/FrontPage/home.vue';
 import Login from './components/FrontPage/login.vue';
-import Postpage from './components/Posts'
-import Post from './components/Posts/post'
+import Postpage from './components/Posts/index.vue'
+import Post from './components/Posts/post.vue'
 
 // async function resolveUserData(to, from, next) {
 //   const user = store.getters['getUserData'];

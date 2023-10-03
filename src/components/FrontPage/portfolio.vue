@@ -58,12 +58,12 @@
             </div>
             <div class="card">
                 <div class="img-text-section">
-                    <a href="https://thaispaburapa.com/" target="_blank">
-                        <img class="card-img" src="https://meghaviwellness.com/wp-content/uploads/2023/06/couplee-main.jpg"/>
+                    <a href="https://akbattery24hr.com/" target="_blank">
+                        <img class="card-img" src="../../assets/akbattery.jpg"/>
                     </a>
                     <div class="card-text">
-                        <h5 class="card-title font-bold">Thai Spa Burapa</h5>
-                        <p class="card-description">Website of Spa and Massage school in Trat</p>
+                        <h5 class="card-title font-bold">A&K Battery</h5>
+                        <p class="card-description">Business website of A&K battery. Responsible for all aspects of the development.</p>
                     </div>
                 </div>
                 <div class="icon-div"><i class="fa-brands fa-wordpress"></i></div>

@@ -9,7 +9,7 @@
     </div>
     <div class="container-fluid m-auto">
         <h2>Sample Post Page</h2>
-        <p>(Must signin first to post)</p>
+        <h4 class="text-center m-auto">(Must signin first to post)</h4>
         <div class="p-20 lg:w-2/3 m-auto shadow-xl shadow-grey p-6">
             <h3>Post Preview</h3>
             <div class="h-60 border-4 border-black-800 rounded-2xl my-6 m-auto flex content-center">

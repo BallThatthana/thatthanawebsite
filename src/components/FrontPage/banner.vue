@@ -2,7 +2,7 @@
 <div id="banner-container" class="min-h-[460px] container-fluid w-full flex flex-col xs:flex-row xs:items-center md:flex-row md:items-center justify-center font-bold">
     <div class="image-div mx-auto overflow-hidden"> 
       <!-- @mouseenter="startAnimation" @mouseleave="stopAnimation" -->
-        <img id="my-image" class="mx-auto w-1/2 xs:w-2/3 mb-6 rounded-full" src="../../assets/image.jpg" alt="image"
+        <img id="my-image" class="mx-auto w-1/2 xs:w-2/3 mb-6 rounded-full" src="../../assets/my_image.jpg" alt="my-image"
         ref="cardImg">
         <h2 class="text-center text-white text-2xl md:text-3xl m-0">Ball Thatthana</h2>
         <h3 class="text-white text-lg sm:text-xl">Web Developer</h3>
