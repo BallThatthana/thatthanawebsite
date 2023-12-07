@@ -106,8 +106,8 @@ cors(req, res, () => {
   let total = 0;
 
   items.forEach(item => {
-    visitorMail.text += `Orders ${items.title, items.price}\n`;
-    total += items.price * items.quantity;
+    visitorMail.text += `Orders ${item.title} - ${item.price}\n`;
+    total += item.price * item.quantity;
   })
   visitorMail += `Order amount ${total}\n`
   visitorMail += ` Address: ${address}
