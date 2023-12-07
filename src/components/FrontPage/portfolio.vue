@@ -63,7 +63,7 @@
                     </a>
                     <div class="card-text">
                         <h5 class="card-title font-bold">A&K Battery</h5>
-                        <p class="card-description">Business website of A&K battery. Responsible for all aspects of the development.</p>
+                        <p class="card-description">Responsible for all aspects of the web development.</p>
                     </div>
                 </div>
                 <div class="icon-div"><i class="fa-brands fa-wordpress"></i></div>
@@ -100,20 +100,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="card text-center py-6 px-4 max-w-sm rounded-xl overflow-hidden">
-                <img class="card-img m-auto w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQvFGJAZxcB-gtSN2FxGNSPKCH4D-DRdSl7aR63o0LpHgJKRen_byPvRbudfPrGsXlLx8&usqp=CAU" alt="website builing"/>
-                <div class="card-text my-2">
-                    <h5 class="card-title font-bold">Encode-Decode URL</h5>
-                    <p class="card-description">Easily encode and decode url that suits your need.</p>
-                </div>
-            </div>
-            <div class="card text-center py-6 px-4 max-w-sm rounded-xl overflow-hidden">
-                <img class="card-img m-auto w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQvFGJAZxcB-gtSN2FxGNSPKCH4D-DRdSl7aR63o0LpHgJKRen_byPvRbudfPrGsXlLx8&usqp=CAU" alt="website builing"/>
-                <div class="card-text my-2">
-                    <h5 class="card-title font-bold">Title</h5>
-                    <p class="card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam ipsa soluta voluptatem. Atque dolores et quos voluptatibus. Exercitationem, illum earum?</p>
-                </div>
-            </div> -->
         </div>
     </div>
 </template>

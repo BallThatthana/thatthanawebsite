@@ -96,7 +96,7 @@ const authModule = {
           window.location.href = '/'
         },1000)
       } catch (error) {
-        console.log(error);
+        showSweetAlert('error', error, 1500, false);
       }
     },
     async autoLogin({ commit, dispatch }, payload) {
@@ -105,7 +105,7 @@ const authModule = {
         commit('setUser', userData);
         return true;
         } catch(error){
-            console.log(error)
+          showSweetAlert('error', error, false, 1500);
         }
       },
     async getUserProfile({commit},payload){
@@ -117,7 +117,7 @@ const authModule = {
               return null
           }
       } catch(error){
-          console.log(error)
+        showSweetAlert('error', error, false, 1500);
       }
     },
     async signin({ commit, dispatch }, payload) {
@@ -133,7 +133,7 @@ const authModule = {
         commit('setUser',userData);
         showSweetAlert('success', 'signin successful', false, 1500);
       } catch (error) {
-        console.log('signin error:', error);
+          showSweetAlert('error', error, false, 1500);
         if (error.code === 'auth/wrong-password') {
           showSweetAlert('error', 'wrong password', false, 1500);
         } else {
@@ -167,7 +167,6 @@ const authModule = {
           showSweetAlert('error', 'email already in use', false, 1500);
         } else {
           showSweetAlert('error', error, false, 1500);
-          console.log(error)
         }
       }
     }

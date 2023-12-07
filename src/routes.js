@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import store from './Store/index.js';
 import Home from './components/FrontPage/home.vue';
-import Login from './components/FrontPage/login.vue';
+//import Login from './components/FrontPage/login.vue';
+import Signup from './components/User/signup.vue'
 import Postpage from './components/Posts/index.vue'
 import Post from './components/Posts/post.vue'
+import Products from './components/Products/index'
+import ProductDetail from './components/Products/product-detail'
+import Checkout from './components/Utils/checkout'
 
 // async function resolveUserData(to, from, next) {
 //   const user = store.getters['getUserData'];
@@ -26,11 +30,14 @@ import Post from './components/Posts/post.vue'
 
 const routes = [
   { path: '/', component: Home, name: 'home' },
-  { path: '/login', component: Login, name: 'login'},
+  { path: '/login', component: Signup, name: 'signup'},
   { path: '/posts', component: Postpage, name: 'posts',
     //beforeEnter: resolveUserData,
   },
-  { path: '/posts/:postId', component: Post, name: 'post' }
+  { path: '/posts/:postId', component: Post, name: 'post' },
+  { path: '/products', component: Products, name: 'products' },
+  { path: '/products/:id', component: ProductDetail, name: 'product-detail' },
+  { path: '/checkout', component: Checkout, name: 'checkout' }
 ]
 
 const router = createRouter({
@@ -50,7 +57,7 @@ router.beforeEach(async (to, from, next) => {
         path: '/login',
         query: { redirectFrom: to.fullPath },
       });
-    } else if (to.name === 'login' && isAuth) {
+    } else if (to.name === 'signup' && isAuth) {
       next({ path: to.query.redirectFrom || '/' });
     } else {
       // Continue with the navigation

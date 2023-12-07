@@ -4,6 +4,7 @@ import store from './Store';
 import router from './routes'
 import './assets/style.css'
 import './firebase'
+
 // import dotenv from 'dotenv'
 
 // // Load environment variables from .env
@@ -25,7 +26,7 @@ import './firebase'
 // library.add(faEnvelope) //regular
 
 const app = createApp(App)
-  
+
 app.use(store)
 app.use(router)
 //app.use(FontAwesomeIcon)

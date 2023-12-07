@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <div @click="onCloseModal" class="modal-overlay"></div>
-        <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto">
+    <div class="my-10">
+        <!-- <div @click="onCloseModal" class="modal-overlay"></div> -->
+        <!-- <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto"> -->
+
         <!-- <div class="modal-overlay" @click="onCloseModal"></div>
         <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto"> -->
            <div>
@@ -57,7 +58,7 @@
                 </form>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script>
@@ -114,7 +115,6 @@ export default {
                         const redirectFrom = this.$route.query.redirectFrom || '/';
                         this.$router.push(redirectFrom);
                     }
-                    console.log(this.form, 'form');
                 } else {
                     //sign up
                     await this.$store.dispatch('signup', this.form );
@@ -139,7 +139,6 @@ export default {
            }
         },
         onLogOut(){
-            console.log('Logging out...')
             this.$store.dispatch('logOut')
             this.$store.commit('closeLogin')
             //this.signInAndSignUpComplete = false;

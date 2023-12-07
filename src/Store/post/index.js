@@ -60,7 +60,7 @@ const PostModule = {
                //console.log(posts, 'Allposts')
                commit('setPost', posts)
              } catch(err){
-                console.log(err)
+                showSweetAlert('error', err, false, 1500)
              }
         },
         async postData({ commit, rootGetters }, payload) {
@@ -89,7 +89,6 @@ const PostModule = {
                 commit('showLoader');
             } catch(err){
                 showSweetAlert('error', err, false, 1500)
-                console.log(err)
             }
         },
     }

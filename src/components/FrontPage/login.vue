@@ -1,8 +1,9 @@
 <template>
     <div>
         <div v-if="toggleShowLogin && !isAuth">
-        <div @close="closeModal" class="modal-overlay"></div>
-        <SignUp @close="closeModal"/>
+            <!-- <div @close="closeModal" class="modal-overlay"></div>
+            <SignUp @close="closeModal"/> -->
+            <SignUp/>
         </div>
         <div v-else></div>
     </div>

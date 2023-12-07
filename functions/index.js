@@ -38,7 +38,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 
   cors(req, res, () => {
     // Extract necessary data (name, email, text) from req.body
-    const { name, email, text } = req.body;
+    const { name, email, text, address, items } = req.body;
 
     // Construct email content for the visitor
     const visitorMail = {
@@ -46,6 +46,8 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       to: email,
       subject: 'Thank you for your email.',
       text: `Hi ${name},\n\nThank you for your email. I will get back to you as soon as possible.\n\nMessage: ${text}\n\nBest regards,\nBall Thatthana`,
+      address,
+      items
     };
 
     // Send email to the visitor
@@ -65,6 +67,8 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
       to: process.env.VUE_APP_OWNER_MAIL,
       subject: 'There is an email from visitor',
       text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\nMessage: ${text}`,
+      address,
+      items
     };
 
     // Send the email
@@ -79,6 +83,71 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
     });
   });
 });
+
+exports.sendOrderEmail = functions.https.onRequest((req, res) => {
+
+  //must set header too!!!
+  res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app, http://localhost');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+cors(req, res, () => {
+  // Extract necessary data (name, email, text) from req.body
+  const { name, email, text, address, items } = req.body;
+
+  // Construct email content for the visitor
+  let visitorMail = {
+    from: process.env.VUE_APP_MAIL_USER,
+    to: email,
+    subject: 'Thank you for your order.',
+    text: `Hi ${name},\n\nThank you for your order.
+    \nOrders:`,
+  };
+
+  let total = 0;
+
+  items.forEach(item => {
+    visitorMail.text += `Orders ${items.title, items.price}\n`;
+    total += items.price * items.quantity;
+  })
+  visitorMail += `Order amount ${total}\n`
+  visitorMail += ` Address: ${address}
+  \n\nBest regards,\nBall Thatthana`
+  
+  // Send email to the visitor
+  transporter.sendMail(visitorMail, (err, info) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'An error occurred while sending the email.' });
+    } else {
+      console.log('Email sent:', info.response);
+      res.status(200).json({ message: 'Email sent successfully.' });
+    }
+  });
+
+  // Send email to yourself
+  const myEmailCopy = {
+    from: process.env.VUE_APP_OWNER_MAIL,
+    to: process.env.VUE_APP_OWNER_MAIL,
+    subject: 'There is an email from visitor',
+    text: `Hi,\n\nAn email received from ${name} ${email}. Please respond as soon as possible.\n\nMessage: ${text}`,
+    address,
+    items
+  };
+
+  // Send the email
+  transporter.sendMail(myEmailCopy, (err, info) => {
+    if (err) {
+      console.error(err);
+      // Handle the error here
+    } else {
+      console.log('Email sent:', info.response);
+      // Handle the success here
+    }
+  });
+});
+});
+
+
 
 
 // Create and deploy your first functions

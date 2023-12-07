@@ -5,7 +5,7 @@ const LoaderModule = {
       }
     },
     getters :{
-        loader: state => state.isLoading
+        isLoading: state => state.isLoading
     },
     mutations:{
         setLoader(state,payload){

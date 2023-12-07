@@ -2,57 +2,81 @@
     <div class="header" :class="{ scrolled: isScrolled }">
       <nav id="navbar">
         <div class="font-semibold text-white text-base sm:text-xl">
-          <router-link :to="{ name: 'home' }">Ball Thatthana</router-link>
+          <router-link :to="{ name: 'home' }">Bon Thatthana</router-link>
         </div>
         <div class="nav-right-buttons">
-            <div class="font-semibold text-white text-sm sm:text-lg px-2">
-                <router-link :to="{ name: 'posts' }">Dashboard</router-link>
+            <div 
+                v-if="$route.path !== '/posts'"
+                class="font-semibold text-white text-sm sm:text-lg px-2">
+                <router-link :to="{ name: 'posts' }">Blogs</router-link>
             </div>
-            <div class="auth-btn hide px-2">
+            <div                 
+                v-if="$route.path !== '/products'"
+                class="font-semibold text-white text-sm sm:text-lg px-2"
+                >
+                <router-link :to="{ name: 'products' }">Products</router-link>
+            </div>
+            <div 
+                v-if="$route.path === '/'"
+                class="auth-btn hide px-2">
                 <!-- Render content based on the value of isAuth -->
                 <div>
                     <!-- Display content for authenticated users -->
                     <div class="text-center text-xs pb-2">
-                    <button 
-                        v-if="isAuth"
-                        @click="onLogOut"
-                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                        Log out
-                    </button>
-                    <button
-                        v-if="!isAuth"
-                        @click="clickToSignUp"
-                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        :to="{name: 'login'}"
+                        <button 
+                            v-if="isAuth"
+                            @click="onLogOut"
+                            class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
-                        My CV
-                    </button>
+                            Log out
+                        </button>
+                        <button
+                            v-if="!isAuth"
+                            @click="clickToSignUp"
+                            class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            :to="{name: 'login'}"
+                            >
+                            My CV
+                        </button>
+
                     </div>
                 </div>
+            </div>
+            <div 
+                v-if="$route.path === '/products'"
+                    @click="displayCart">
+                <i class="fas fa-shopping-bag">
+                    <span class="text-white">Cart</span>
+                </i>
+            </div>
+            <div 
+                v-if="showCart"
+                class="cart">
+                <Cart @close="closeCart"/>
             </div>
        </div>
       </nav>
     </div>
   </template>
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters, mapMutations} from 'vuex'
+import Cart from '../Utils/cart.vue'
 //import SignupModal from '../User/signup.vue'
 //import Home from './home.vue'
 
 export default {
     components: {
+        Cart
         //SignupModal
     },
     computed: {
-        ...mapGetters(['isAuth', 'toggleShowLogin']),
-        ...mapActions(['logOut'])
+        ...mapGetters(['showCart'])
     },
     data(){
         return{
-        isScrolled: false,
-        loading: true, // Initialize loading flag
-        // clickSignUp: false
+            isScrolled: false,
+            loading: true, // Initialize loading flag
+            // clickSignUp: false
         }
     },
     async created() {
@@ -67,6 +91,14 @@ export default {
         window.removeEventListener('scroll', this.handleScroll)
     },
     methods:{
+        ...mapMutations(['display_cart']),
+        closeCart(){
+            this.display_cart(false)
+            console.log('overlay')
+        },
+        displayCart(){
+            this.display_cart(true)
+        },
         closeModal(){
             this.$store.commit('closeLogin');
         },
@@ -109,7 +141,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0);
   z-index: 9998;
 }
 .header{

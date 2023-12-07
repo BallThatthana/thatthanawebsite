@@ -7,8 +7,8 @@
                 color="#ff1d5e"
             />
     </div>
-    <div class="container-fluid m-auto">
-        <h2>Sample Post Page</h2>
+    <div id="main-container" class="container-fluid m-auto">
+        <h2 class="text-center">Sample Post Page</h2>
         <h4 class="text-center m-auto">(Must signin first to post)</h4>
         <div class="p-20 lg:w-2/3 m-auto shadow-xl shadow-grey p-6">
             <h3>Post Preview</h3>
@@ -47,7 +47,7 @@
                 <div>
                     <button 
                         type="submit"
-                        class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        class="mt-2 outline focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:focus:ring-blue-800"
                         >Submit
                      </button>
                 </div>
@@ -60,31 +60,52 @@
             <div class="card"
                     v-for="post in posts" 
                     :key="post.id">
-                <a :href="post.post_detail.image_url" target="_blank">
-                    <img class="card-img" :src="post.post_detail.image_url"/>
-                </a>
+                <div @click="displayModal(post)" >
+                    <img class="card-img" :src="post.post_detail.image_url" />
+                </div>
                 <div class="card-text overflow-hidden">
                     <h5 class="card-title font-bold">{{ post.post_detail.title }}</h5>
                     <p class="card-description">{{ post.post_detail.description }}</p>
                     <p class="card-description">{{ post.owner.email }}</p>
 
                 </div>
+                <!-- <full-image-modal
+                    v-if="fullImage"
+                    :image-url="fullScreenImageUrl"
+                    @close="closeFullScreenImage"
+                /> -->
                 <div class="mt-4">
                     <router-link to="/posts/1">
-                        <button type="button" class="btn bg-black rounded-xl text-white font-semibold px-2 py-1 w-full"
+                        <button type="button" class="btn outline mb-4 rounded-xl font-semibold px-2 py-1 mt-1 w-full"
                             >
                             View
                         </button>
                     </router-link>
+                    <!-- <button 
+                            @click="addToCart(post)"
+                            type="button" 
+                            class="btn bg-black rounded-xl text-white font-semibold px-2 py-1 mt-1 w-full">
+                            Add to cart
+                        </button> -->
                     <button type="button" 
                         @click="deletePost(post.id)" 
-                        class="btn bg-red-400 rounded-xl text-white font-semibold px-2 py-1 mt-1 w-full"
+                        class="btn outline rounded-xl font-semibold px-2 py-1 mt-1 w-full"
                     >Delete
                 </button>
                 </div>
             </div>
         </div>
     </div>
+    <div v-if="showModal">
+        <full-image-modal
+            :image-url="modalImageUrl"
+            :postTitle="modalPostTitle"
+            :postDescription="modalPostDescription"
+            :postAuthor="modalAuthor"
+            :postDate="modalDate"
+            @close="closeFullScreenImage"
+        />
+    </div>>
 </template>
 <script>
 
@@ -96,10 +117,14 @@ import { db } from '../../firebase';
 //import axios from 'axios';
 //import { ImageCompressor } from 'image-compressor';
 import { showSweetAlert } from '@/Store/utils/sweetalert';
+import {hashData} from '../../globalFunction/hashData';
+import {generateSecureImagePath} from '../../globalFunction/secureImagePath';
+import FullImageModal from './image_modal.vue'
 
 export default{ 
     components:{
-        FlowerSpinner
+        FlowerSpinner,
+        FullImageModal
     },
     computed:{
         ...mapGetters(['isAuth', 'toggleShowLogin','getUserData', 'allPosts', 'closeLogin', 'loader']),
@@ -114,23 +139,37 @@ export default{
                 title:'',
                 description:''
             },
+            imagePath:[],
             imagePreview: null,
             posts:[],
             file: null,
             imageData: null, // Store the selected image file
             picture: null, // URL of the uploaded image
-            uploadValue: 0 // Progress of the image upload,
+            uploadValue: 0,// Progress of the image upload,
+            showModal: false,
+            modalImageUrl: null,
+            modalPostTitle: '',
+            modalPostDescription: '',
+            modalAuthor: '',
+            modalDate: '',
         }
     },
     async created() {
         try {
             const postCollection = collection(db, "posts");
             const data = await getDocs(postCollection);
-
             this.posts = data.docs.map((doc) => {
+                const postData = doc.data();
+                const image = new Image();
+                image.src = postData.post_detail.image_url;
+                image.onload = () => {
+                    this.fullScreenImageUrl = image.src;
+                };
+                // const secureImagePath = generateSecureImagePath(postData);
+                // const hashedPath = hashData(secureImagePath);
                 return {
                     id: doc.id,
-                    ...doc.data(),
+                    ...postData,
                 };
             });
         } catch (err) {
@@ -138,7 +177,10 @@ export default{
         }
     },
     methods:{
-        ...mapActions(['postData', 'showLoader', 'hideLoader']),
+        ...mapActions(['postData', 'showLoader', 'hideLoader', 'addCart']),
+        addToCart(item){
+            this.$store.dispatch('addCart', (item))
+        },
         async deletePost(id){
             try {
                 await deleteDoc(doc(db, 'posts', id));
@@ -148,6 +190,43 @@ export default{
             } catch(err){
                 showSweetAlert('errror', err , false, 1500);
             }
+        },
+        formatDate(time){
+            const timestamp = time / 1000;
+            const date = new Date(timestamp * 1000);
+            const day = date.getUTCDate();
+            const month = date.toLocaleString('defaul', {month: 'short'});
+            const year = date.getUTCFullYear();
+            return `${day}-${month}-${year}`;
+        },
+        displayModal(post){
+            if(!this.showModal){
+                this.showModal = true;
+                this.modalImageUrl = post.post_detail.image_url;
+                this.modalPostTitle = post.post_detail.title;
+                this.modalPostDescription = post.post_detail.description;
+                this.modalAuthor = post.owner.email;
+                this.modalDate= this.formatDate(post.time);
+                const el = document.getElementById('main-container');
+                el.classList.add('modal-active');
+            }
+        },
+        closeFullScreenImage(){
+            this.showModal = false;
+            this.modalImageUrl = null;
+            this.modalPostTitle = '';
+            this.modalPostDescription = '';
+            this.modalAuthor = '';
+            this.modalDate= '';
+            const el = document.getElementById('main-container');
+            el.classList.remove('modal-active');
+        },
+        getImageUrl(post){
+            const secureImagePath = generateSecureImagePath(post.post_detail);
+            const maskedPath = hashData(secureImagePath);
+            const firebaseStoragaUrl = 'https://firebasestorage.googleapis.com/v0'
+            const maskedImageUrl = `${firebaseStoragaUrl}/${maskedPath}?alt=media`;
+            return maskedImageUrl
         },
         imageUpload(e){
             this.uploadValue = 0;
@@ -214,13 +293,15 @@ export default{
                 }
             } catch(err){
                 showSweetAlert('error', err, 1500, false)
-                console.log(err)
             }
         }
     }
 }
 </script>
 <style scoped> 
+.modal-active{
+    pointer-events: none;
+}
 .preview-image {
     max-width: 100%;
     height: auto;
