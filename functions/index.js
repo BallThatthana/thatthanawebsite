@@ -94,6 +94,8 @@ cors(req, res, () => {
   // Extract necessary data (name, email, text) from req.body
   const { name, email, text, address, items } = req.body;
 
+  console.log(req.body.email, 'cloud func');
+
   // Construct email content for the visitor
   let visitorMail = {
     from: process.env.VUE_APP_MAIL_USER,
@@ -109,8 +111,8 @@ cors(req, res, () => {
     visitorMail.text += `Orders ${item.title} - ${item.price}\n`;
     total += item.price * item.quantity;
   })
-  visitorMail += `Order amount ${total}\n`
-  visitorMail += ` Address: ${address}
+  visitorMail.text += `Order amount ${total}\n`
+  visitorMail.text += ` Address: ${address}
   \n\nBest regards,\nBall Thatthana`
   
   // Send email to the visitor

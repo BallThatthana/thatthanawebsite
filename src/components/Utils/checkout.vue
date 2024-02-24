@@ -159,6 +159,8 @@ export default {
         async sendOrderEmail(){
             try {  
                 const { name, email, company, address } = this.form
+
+                console.log(this.form, 'this form')
                 // //localhost
                 // await axios.post('http://localhost:3000/send-email' , {
                 //  // firebase url

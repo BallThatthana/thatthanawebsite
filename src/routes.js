@@ -8,6 +8,7 @@ import Post from './components/Posts/post.vue'
 import Products from './components/Products/index'
 import ProductDetail from './components/Products/product-detail'
 import Checkout from './components/Utils/checkout'
+import TestApi from './components/FrontPage/testApi'
 
 // async function resolveUserData(to, from, next) {
 //   const user = store.getters['getUserData'];
@@ -37,7 +38,8 @@ const routes = [
   { path: '/posts/:postId', component: Post, name: 'post' },
   { path: '/products', component: Products, name: 'products' },
   { path: '/products/:id', component: ProductDetail, name: 'product-detail' },
-  { path: '/checkout', component: Checkout, name: 'checkout' }
+  { path: '/checkout', component: Checkout, name: 'checkout' },
+  { path: '/testapi', component: TestApi, name: 'testapi' }
 ]
 
 const router = createRouter({
