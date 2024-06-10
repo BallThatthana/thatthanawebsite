@@ -6,7 +6,7 @@
         <!-- <div class="modal-overlay" @click="onCloseModal"></div>
         <div class="modal-container border rounded-xl bg-white shadow-xl mt-10 pt-8 p-6 w-2/3 m-auto"> -->
            <div>
-            <h3 class="text-base sm:text-xl font-semibold">
+            <h3 class="text-base sm:text-xl font-semibold mx-auto text-center">
                {{ variableTitle() }}
             </h3>
             <p class="text-center mb-4">(using Firebase Authentication)</p>

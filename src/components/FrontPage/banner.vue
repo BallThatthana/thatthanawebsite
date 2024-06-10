@@ -5,7 +5,7 @@
         <img id="my-image" class="mx-auto w-1/2 xs:w-2/3 mb-6 rounded-full" src="../../assets/my_image.jpg" alt="my-image"
         ref="cardImg">
         <h2 class="text-center text-white text-2xl md:text-3xl m-0">Bon Thatthana</h2>
-        <h3 class="text-white text-center text-lg sm:text-xl">Web Developer</h3>
+        <h3 class="text-white text-center text-lg sm:text-xl">Web Product Development</h3>
     </div>
     <div class="pb-6">
         <p class="text-center text-white text-sm sm:text-base md:text-xl lg:text-2xl font-normal">Web development, digital marketing, content creation.</p>

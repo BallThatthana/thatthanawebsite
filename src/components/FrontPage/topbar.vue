@@ -8,13 +8,13 @@
             <div 
                 v-if="$route.path !== '/posts'"
                 class="font-semibold text-white text-sm sm:text-lg px-2">
-                <router-link :to="{ name: 'posts' }">Blogs</router-link>
+                <router-link :to="{ name: 'posts' }">Example Blogs</router-link>
             </div>
             <div                 
                 v-if="$route.path !== '/products'"
                 class="font-semibold text-white text-sm sm:text-lg px-2"
                 >
-                <router-link :to="{ name: 'products' }">Products</router-link>
+                <router-link :to="{ name: 'products' }">Sample Shop</router-link>
             </div>
             <div 
                 v-if="$route.path === '/'"
@@ -36,7 +36,7 @@
                             class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             :to="{name: 'login'}"
                             >
-                            My CV
+                            Signup
                         </button>
 
                     </div>

@@ -2,7 +2,7 @@
  <div>
     <div v-if="isAuth" class="container-fluid btn-container">
         <a  class="btn-cv bg-blue-500 hover:bg-blue-400" 
-            href="https://drive.google.com/file/d/1bskBU7wBVwByDEI1zywp9XR9iyIO64IF/view?usp=sharing" 
+            href="https://docs.google.com/document/d/1eDTBBIQDwIsfHMJ8RCWK8aRvkHC96y0pJZUGnMgIp28/edit?usp=sharing" 
             target="_blank">
             Download my CV
         </a>
