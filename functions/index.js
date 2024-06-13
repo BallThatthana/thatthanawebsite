@@ -14,7 +14,7 @@ const functions = require('firebase-functions');
 const nodemailer = require('nodemailer');
 
 const cors = require('cors')({
-          origin: ['https://ballthatthana-app.web.app', 'http://localhost:8080'],
+          origin: ['https://ballthatthana-app.web.app', 'http://localhost:8080','https://bonthatthana.netlify.app'],
           methods: ['GET', 'POST'], // Specify the allowed HTTP methods
           allowedHeaders: ['Content-Type', 'Authorization'], // Specify the allowed headers
 });
@@ -33,7 +33,7 @@ const transporter = nodemailer.createTransport({
 exports.sendEmail = functions.https.onRequest((req, res) => {
 
     //must set header too!!!
-    res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app, http://localhost');
+    res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app', 'http://localhost:8080','https://bonthatthana.netlify.app');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   cors(req, res, () => {
@@ -87,7 +87,7 @@ exports.sendEmail = functions.https.onRequest((req, res) => {
 exports.sendOrderEmail = functions.https.onRequest((req, res) => {
 
   //must set header too!!!
-  res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app, http://localhost');
+  res.setHeader('Access-Control-Allow-Origin', 'https://ballthatthana-app.web.app', 'http://localhost:8080','https://bonthatthana.netlify.app');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
 
 cors(req, res, () => {
