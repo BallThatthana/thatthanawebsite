@@ -47,14 +47,14 @@
                         type="text"
                         id="textarea"
                         class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter your email"
+                        placeholder="Enter message"
                         v-model="form.message">
                         </textarea>
                 </div>
 
                 <button
                     type="submit"
-                    class="btn outline mb-3 btn-block mt-2 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+                    class="btn outline mb-3 btn-block mt-2 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:bg-gray-100"
                 > Send message
                 </button>
                 <div>(Built with Nodemailer and deployed to Firebase Cloud Functions)</div>
@@ -78,7 +78,7 @@ import { mapGetters } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
-import router from '@/routes';
+//import router from '@/routes';
 
 export default {
     components: {
@@ -117,20 +117,22 @@ export default {
                 // if (response.ok) {
                 this.loading = true;
                 showSweetAlert('success', 'Email sent successfully', false, 1500);
-                setTimeout(() => {
-                    this.loading = false;
-                    this.form = {
-                        name:'',
-                        email:'',
-                        text: ''
-                    };
-                    router.push('/')
-                }, 3000);
-
+                    this.resetForm();
+                    setTimeout(()=>{
+                        window.scrollTo(0,0)
+                }, 3000)
             } catch (err) {
                 showSweetAlert('error', 'An error occurred', false, 1500);
                 this.loading = false;
             }
+        },
+        resetForm() {
+            this.form = {
+                name: '',
+                email: '',
+                company: '',
+                message: ''
+            };
         }
     }
 }

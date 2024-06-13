@@ -112,6 +112,7 @@ import { mapGetters, mapActions } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
+import router from '@/routes';
 
 export default {
     emits: ['close'],
@@ -184,7 +185,7 @@ export default {
                         address: '',
                     };
                     this.$store.dispatch('clearCart', [])
-                    window.location.reload();
+                    router.push('/products')
                 }, 3000);
                 console.log(this.form)
             } catch (err) {

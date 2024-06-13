@@ -5,11 +5,11 @@
           <router-link :to="{ name: 'home' }">Bon Thatthana</router-link>
         </div>
         <div class="nav-right-buttons">
-            <div 
+            <!-- <div 
                 v-if="$route.path !== '/posts'"
                 class="font-semibold text-white text-sm sm:text-lg px-2">
                 <router-link :to="{ name: 'posts' }">Example Blogs</router-link>
-            </div>
+            </div> -->
             <div                 
                 v-if="$route.path !== '/products'"
                 class="font-semibold text-white text-sm sm:text-lg px-2"

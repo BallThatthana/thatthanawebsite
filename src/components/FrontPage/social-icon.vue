@@ -8,17 +8,20 @@
                     <font-awesome-icon icon="mobile-screen-button" />
             </div>
         </div> -->
-        <div class="w-full mx-auto m-2 sm:mx-4 text-xl sm:text-3xl md:text-5xl social-icon border-2 border-black rounded-full py-2 px-4">
-            <a href="tel:+66830644271" target="_blank">PHONE</a>
+        <div class="w-full mx-auto m-2 sm:mx-4 text-xl social-icon border-2 border-black rounded-full py-2 px-4">
+            <a href="https://www.linkedin.com/in/thatthana-diloksinpanya/" target="_blank">Linkedln</a>
         </div>
-        <div class="w-full mx-auto m-2 sm:mx-4 text-xl sm:text-3xl md:text-5xl social-icon border-2 border-black rounded-full py-2 px-4">
-            <a href="mailto:thatthana.d@gmail.com" target="_blank">MAIL</a>
+        <div class="w-full mx-auto m-2 sm:mx-4 text-xl social-icon border-2 border-black rounded-full py-2 px-4">
+            <a href="tel:+66830644271" target="_blank">Phone</a>
         </div>
-        <div class="w-full mx-auto m-2 sm:mx-4 text-xl sm:text-3xl md:text-5xl social-icon border-2 border-black rounded-full py-2 px-4">
-            <a href="https://github.com/BallThatthana" target="_blank">GITHUB</a>
+        <div class="w-full mx-auto m-2 sm:mx-4 text-xl social-icon border-2 border-black rounded-full py-2 px-4">
+            <a href="mailto:thatthana.d@gmail.com" target="_blank">Mail</a>
         </div>
-        <div class="w-full mx-auto m-2 sm:mx-4 text-xl sm:text-3xl md:text-5xl social-icon border-2 border-black rounded-full py-2 px-4">
-            <a href="https://youtube.com/@BallEcomThatthana" target="_blank">YOUTUBE</a>
+        <div class="w-full mx-auto m-2 sm:mx-4 text-xl  social-icon border-2 border-black rounded-full py-2 px-4">
+            <a href="https://github.com/BallThatthana" target="_blank">Github</a>
+        </div>
+        <div class="w-full mx-auto m-2 sm:mx-4 text-xl social-icon border-2 border-black rounded-full py-2 px-4">
+            <a href="https://youtube.com/@BallEcomThatthana" target="_blank">Youtube</a>
         </div>
     </div>
 </template>
@@ -52,15 +55,8 @@ export default{
 }
 .social-icon:hover{
     color: grey;
-    font-size: 450%;
+    font-size: 150%;
     transform: translate(2px);
 }
 
-@media (max-width: 765px) {
-.social-icon:hover{
-    color: grey;
-    font-size: 200%; /*150 is default */
-    transform: translate(2px);
-}
-}
 </style>

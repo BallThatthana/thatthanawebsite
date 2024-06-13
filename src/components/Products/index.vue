@@ -13,7 +13,7 @@
         <h2>Sample Products Page</h2>
         <div class="container">
             <div 
-                class="card rounded-lg"
+                class="card rounded-lg hover:shadow-xl"
                     v-for="product in products" 
                     :key="product.id"
                     >
@@ -31,7 +31,7 @@
                         <button 
                             @click="pushToState(product)"
                             type="button" 
-                            class="outline outline-black-500 rounded-md font-semibold px-2 py-1 mt-1 w-full"
+                            class="product-btn outline outline-black-500 rounded-md font-semibold px-2 py-1 mt-1 w-full hover:bg-gray-100"
                             >
                             View
                         </button>
@@ -41,7 +41,7 @@
                             <button 
                                 @click="addToCart(product)"
                                 type="button" 
-                                class="outline rounded-md font-semibold px-2 py-1 mt-1 w-full">
+                                class="product-btn outline rounded-md font-semibold px-2 py-1 mt-1 w-full hover:bg-gray-100">
                                 Add to cart
                             </button>
                        </div>
