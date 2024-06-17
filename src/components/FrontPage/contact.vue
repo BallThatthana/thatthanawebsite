@@ -117,10 +117,12 @@ export default {
                 // if (response.ok) {
                 this.loading = true;
                 showSweetAlert('success', 'Email sent successfully', false, 1500);
-                    this.resetForm();
-                    setTimeout(()=>{
-                        window.scrollTo(0,0)
+                this.resetForm();
+                setTimeout(()=>{
+                    this.loading = false;
+                    window.scrollTo(0,0)
                 }, 3000)
+
             } catch (err) {
                 showSweetAlert('error', 'An error occurred', false, 1500);
                 this.loading = false;
