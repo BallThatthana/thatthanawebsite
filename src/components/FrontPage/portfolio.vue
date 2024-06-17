@@ -82,6 +82,20 @@
                     <i class="fa-brands fa-wordpress"></i>
                 </div>
             </div>
+            <div class="card">
+                <div class="img-text-section">
+                    <a href="https://memesgeneratorbybon.netlify.app" target="_blank">
+                        <img class="card-img" src="https://imgflip.com/s/meme/One-Does-Not-Simply.jpg" alt="ballthatthana-logo"/>
+                    </a>
+                    <div class="card-text my-2">
+                        <h5 class="card-title font-bold">Memes Generator</h5>
+                        <p class="card-description">A fun website to generate funny memes!</p>
+                    </div>
+                </div>
+                <div class="icon-div">
+                    <i class="fa-brands fa-react"></i>
+                </div>
+            </div>
         </div>
         <div class="my-6">
             <hr>
