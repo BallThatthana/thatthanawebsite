@@ -1,7 +1,7 @@
 <template>
     <div v-if="!loading"
         class="contact-container border rounded-xl shadow-xl mt-20 mb-16 pt-8 p-6 sm:w-2/3 md:w-1/2 mx-auto">
-        <h3 class="text-base sm:text-xl font-semibold mb-6"> Questions? please fill following form to contact me.
+        <h3 class="text-base sm:text-xl font-semibold mb-6"> Questions??? please fill following form to contact me.
         </h3>
 
         <div class="form-card">
