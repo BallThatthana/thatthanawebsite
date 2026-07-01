@@ -106,13 +106,17 @@ export default {
             try {  
                 const { name, email, message } = this.form
                 // //localhost
-                // await axios.post('http://localhost:3000/send-email' , {
-                //  // firebase url
-                 await axios.post('https://us-central1-ballthatthana-app.cloudfunctions.net/sendEmail', {
+                const isLocal = window.location.hostname === 'localhost';
+                const API_URL = isLocal 
+                ? 'http://127.0.0.1:5001/ballthatthana-app/us-central1/sendEmail' // <-- FIXED PATH
+                : 'https://us-central1-ballthatthana-app.cloudfunctions.net/sendEmail';
+
+                // 2. Fire request to the correct variable url
+                await axios.post(API_URL, {
                     name,
                     email,
                     text: message
-                })
+                });
    
                 // if (response.ok) {
                 this.loading = true;

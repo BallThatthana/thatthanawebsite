@@ -8,7 +8,7 @@ require('dotenv').config();
 //app.use(bodyParser)
 app.use(express.json());
 app.use(cors({
-    origin: ['https://ballthatthana-app.web.app', 'http://localhost'],
+    origin: ['https://ballthatthana-app.web.app', 'http://localhost', 'http://bonthatthana.netlify.app'],
 }));
 
 // Routes
