@@ -113,6 +113,7 @@ import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
 import router from '@/routes';
+import { api } from '@/services/api';
 
 export default {
     emits: ['close'],
@@ -159,13 +160,9 @@ export default {
         ...mapActions(['showLoader', 'hideLoader','removeCart', 'increaseCartItem', 'decreaseCartItem', 'addCart']),
         async sendOrderEmail(){
             try {  
-                const { name, email, company, address } = this.form
+                const { name, email, company, address } = this.form;
 
-                console.log(this.form, 'this form')
-                // //localhost
-                // await axios.post('http://localhost:3000/send-email' , {
-                //  // firebase url
-                 await axios.post('https://us-central1-ballthatthana-app.cloudfunctions.net/sendOrderEmail', {
+                 await axios.post(api, {
                     name,
                     email,
                     company, 
@@ -175,7 +172,7 @@ export default {
    
                 // if (response.ok) {
                 this.loading = true;
-                showSweetAlert('success', 'Email sent successfully', false, 1500);
+                showSweetAlert('success', 'Order placed successfully', false, 1500);
                 setTimeout(() => {
                     this.loading = false;
                     this.form = {

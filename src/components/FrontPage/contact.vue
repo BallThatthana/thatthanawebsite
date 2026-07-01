@@ -79,6 +79,7 @@ import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
 //import router from '@/routes';
+import { api } from '@/services/api';
 
 export default {
     components: {
@@ -106,13 +107,9 @@ export default {
             try {  
                 const { name, email, message } = this.form
                 // //localhost
-                const isLocal = window.location.hostname === 'localhost';
-                const API_URL = isLocal 
-                ? 'http://127.0.0.1:5001/ballthatthana-app/us-central1/sendEmail' // <-- FIXED PATH
-                : 'https://us-central1-ballthatthana-app.cloudfunctions.net/sendEmail';
 
                 // 2. Fire request to the correct variable url
-                await axios.post(API_URL, {
+                await axios.post(api.sendEmail, {
                     name,
                     email,
                     text: message

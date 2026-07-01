@@ -1,53 +1,35 @@
 <template>
- <div>
-    <div v-if="isAuth" class="container-fluid btn-container">
-        <a  class="btn-cv bg-blue-500 hover:bg-blue-400" 
-            href="https://docs.google.com/document/d/1eDTBBIQDwIsfHMJ8RCWK8aRvkHC96y0pJZUGnMgIp28/edit?usp=sharing" 
-            target="_blank">
-            Download my CV
-        </a>
+  <div class="w-full max-w-5xl mx-auto px-6 text-center border-t border-black/10 transition-all duration-300">
+    
+    <div v-if="isAuth" class="flex justify-center items-center py-10 md:py-12">
+      <a  
+        class="inline-block bg-black text-white hover:bg-black/10 hover:text-black border border-black font-bold tracking-widest text-xs uppercase px-10 py-4 rounded-none transition-all duration-300 transform hover:scale-[1.03]" 
+        href="https://docs.google.com/document/d/1eDTBBIQDwIsfHMJ8RCWK8aRvkHC96y0pJZUGnMgIp28/edit?usp=sharing" 
+        target="_blank"
+      >
+        Download my CV
+      </a>
     </div>
-    <div v-else class="container-fluid btn-container">
-        <p class="text-2xl sm:text-3xl md:text-4xl font-bold">Signup to download my CV</p>
+
+    <div v-else class="flex flex-col items-center justify-center py-12 md:py-16 space-y-3">
+      <p class="text-black text-xl sm:text-2xl md:text-3xl font-bold tracking-tight">
+        Sign up to download my CV
+      </p>
+      <p class="text-black/60 text-xs sm:text-sm font-light tracking-wide max-w-md">
+        Create a free account to gain full access to my technical resume, project portfolio breakdowns, and direct channel resources.
+      </p>
     </div>
- </div>
+
+  </div>
 </template>
+
 <script>
-import { mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
+
 export default {
-    computed:{
-        ...mapGetters(['isAuth']),
-        showLogin(){
-            return !this.isAuth;
-        }
-    }
+  name: 'CVCallToAction',
+  computed: {
+    ...mapGetters(['isAuth'])
+  }
 }
-
 </script>
-<style scoped>
-.btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    text-align: center;
-    margin: 80px 0;
-    padding: 20px;
-}
-.btn-cv {
-    color: white;
-    width: 500px;
-    height: auto;
-    /* background-color: #71A6FF; */
-    padding: 20px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-weight: 500;
-    box-shadow: 1px 2px 10px 1px gray;
-    transition: transform 0.3s;
-}
-
-.btn-cv:hover {
-    transform: scale(1.1);
-}
-</style> 
