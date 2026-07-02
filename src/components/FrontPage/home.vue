@@ -3,6 +3,7 @@
        <Banner></Banner>
        <Social></Social>
        <CV></CV>
+       <AboutMe></AboutMe>
        <Portfolio></Portfolio>
        <Contact_Form></Contact_Form>
        <Footer></Footer>
@@ -17,6 +18,7 @@ import Social from './social-icon.vue'
 import Contact_Form from './contact.vue'
 import CV from './cv.vue'
 import Footer from './footer.vue'
+import AboutMe from './aboutMe.vue';
 
 export default {
     components:{
@@ -26,6 +28,7 @@ export default {
         Contact_Form,
         CV,
         Footer,
+        AboutMe
     },
     computed:{
        ...mapGetters(['loader', 'isAuth', 'getUserData']),

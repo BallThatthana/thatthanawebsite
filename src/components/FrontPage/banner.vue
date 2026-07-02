@@ -15,17 +15,18 @@
         <h2 class="text-white text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-1">
           Bon Thatthana
         </h2>
-        <h3 class="text-white/70 text-sm sm:text-base md:text-lg font-medium tracking-wide uppercase">
-          Web Product Development
+        <h3 class="text-white/60 text-[11px] sm:text-xs font-mono tracking-widest uppercase bg-white/10 px-3 py-1 rounded-none border border-white/5">
+          Technical ContentOps
         </h3>
       </div>
       
       <div class="md:col-span-7 flex flex-col justify-center space-y-4 text-center md:text-left md:border-l md:border-white/10 md:pl-12">
-        <p class="text-white/90 text-base sm:text-lg md:text-xl font-light leading-relaxed">
-          Web development, digital marketing, content creation.
+        <p class="text-white text-lg sm:text-xl md:text-2xl font-light tracking-wide leading-relaxed">
+          Bridging the gap between digital content architecture and frontend execution.
         </p>
-        <p class="text-white/80 text-sm sm:text-base md:text-lg font-light leading-relaxed">
-          Continuous learning and self-improvement. Eager to be a part of a great team and contribute to meaningful projects.
+        
+        <p class="text-white/70 text-sm sm:text-base font-light leading-relaxed max-w-xl">
+          Specializing in headless CMS migrations, multilingual localization pipelines, and on-page asset optimization backed by a full-stack foundation in Vue.js and Firebase.
         </p>
       </div>
 
@@ -35,24 +36,21 @@
 
 <script>
 export default {
-  name: 'HeroBanner',
-  methods: {
-    // Legacy animations removed to prioritize clean UI stability.
-  }
+  name: 'HeroBanner'
 };
 </script>
 
 <style scoped>
 #banner-container {
   margin-top: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.45)), url("https://orbitingweb.com/wp-content/uploads/code-on-laptop.jpg");
+  /* Dark overlay ensures high-contrast readability against the code image backdrop */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6)), url("https://orbitingweb.com/wp-content/uploads/code-on-laptop.jpg");
   background-size: cover;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
 }
 
-/* Fallback configuration for mobile web browsers that struggle with fixed background attachments */
 @media (max-width: 768px) {
   #banner-container {
     background-attachment: scroll;
