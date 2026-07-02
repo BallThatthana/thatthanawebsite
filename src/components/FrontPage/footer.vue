@@ -1,28 +1,20 @@
 <template>
-    <!-- <div v-if="isAuth" class="text-center text-xs pb-2">
-        <span>You are signed In </span>
-        <button 
-            @click="onLogOut"
-            class="mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg sm:w-auto px-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >Logout
-        </button>
-    </div> -->
-    <footer class="bottom-0 w-full bg-gray-800 text-white">
-        <div id="footer" class="flex justify-between place-items-center">
-            <p class="py-2 px-4 font-semibold text-white m-auto xs:text-xs sm:text-base"><a href="/">Built with Vue and Tailwind & Firebase</a></p>
-            <!-- <ul>
-                <li>
-                    <a href="/" class="transition duration-500 ease-in-out hover:text-white hover:bg-black">Home</a>
-                </li>
-                <li>
-                    <router-link class="nav-link" :to="{name: 'contact'}"> 
-                       Contact
-                   </router-link>
-                </li>
-            </ul> -->
-        </div>
-    </footer>
-</template> 
+  <footer class="w-full bg-black py-8 border-t border-white/10 transition-all duration-300">
+    <div id="footer-content" class="max-w-5xl w-full mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      
+      <div class="text-[11px] sm:text-xs font-mono text-white/40 tracking-wide uppercase">
+        <a href="/" class="hover:text-white transition-colors duration-300">
+          Built with Vue • Tailwind • Firebase
+        </a>
+      </div>
+
+      <div class="text-[11px] sm:text-xs font-mono text-white/30 tracking-wide uppercase">
+        &copy; 2026 Bon Thatthana. All rights reserved.
+      </div>
+
+    </div>
+  </footer>
+</template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
 //import Home from './home.vue'

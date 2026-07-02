@@ -1,7 +1,7 @@
 const CartModule = {
     state() {
       return {
-        cart: [],
+        cart: [], // Your state property is named "cart"
         showCart: false,
       };
     },
@@ -10,8 +10,9 @@ const CartModule = {
       showCart : state => state.showCart
     },
     mutations: {
-      clearCart(state, payload){
-        state.cartItem = payload
+      // FIXED TYPO: Changed state.cartItem to state.cart
+      clearCart(state) {
+        state.cart = [];
       },
       display_cart(state, payload){
         state.showCart = payload
@@ -22,10 +23,10 @@ const CartModule = {
               if (!existingItem.quantity) {
                 existingItem.quantity = 1;
               } else {
-                existingItem.quantity++; // If the item already exists in the cart, increment its quantity.
+                existingItem.quantity++;
               }
           } else {
-              item.quantity = 1; // If it's a new item, set the quantity to 1.
+              item.quantity = 1;
               state.cart.push(item);
           }
       },
@@ -35,7 +36,6 @@ const CartModule = {
       remove_Item(state, item) {
         const itemsToRemove = state.cart.filter((cartItem) => cartItem.id === item.id);
   
-        // Loop through the items to be removed and splice them
         itemsToRemove.forEach((itemToRemove) => {
           const index = state.cart.indexOf(itemToRemove);
           state.cart.splice(index, 1);
@@ -55,6 +55,10 @@ const CartModule = {
       },
     },
     actions: {
+      // FIXED MISSING ACTION: Created the missing dispatcher action right here
+      clearCart({ commit }) {
+        commit('clearCart');
+      },
       addCart({ commit }, item) {
         commit('setCart', item);
       },
@@ -71,4 +75,3 @@ const CartModule = {
   };
   
   export default CartModule;
-  

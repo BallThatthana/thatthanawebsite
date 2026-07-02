@@ -1,111 +1,125 @@
 <template>
-    <div class="main w-sm:px-20 w-full mx-auto">
-        <div v-if="isLoading"
-            class="spinner flex justify-center items-center min-h-screen">
-                <flower-spinner
-                    :animation-duration="2500"
-                    :size="70"
-                    color="#ff1d5e"
-                />
+  <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
+    <flower-spinner
+      :animation-duration="2500"
+      :size="60"
+      color="#000000"
+    />
+  </div>
+
+  <div v-else class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
+    <div v-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+      
+      <div class="w-full aspect-square overflow-hidden bg-gray-50 p-6 flex items-center justify-center border border-black/5">
+        <img 
+          class="max-w-full max-h-[400px] object-contain transition-transform duration-500 hover:scale-102" 
+          :src="product.image" 
+          :alt="product.title"
+        />
+      </div>
+
+      <div class="flex flex-col justify-start space-y-6">
+        
+        <div class="space-y-2">
+          <span class="inline-block text-[10px] uppercase font-mono tracking-widest text-black/40 bg-black/5 px-2 py-1 rounded-none">
+            {{ product.category }}
+          </span>
+          <h1 class="text-black text-2xl sm:text-3xl font-bold tracking-tight leading-tight">
+            {{ product.title }}
+          </h1>
+          <p class="text-xl font-semibold text-black/80 pt-1">
+            ${{ product.price }}
+          </p>
         </div>
-        <div v-else 
-            class="w-full p-4 p-md-5 mb-4 rounded">
-            <div v-if="selectedProduct" class="px-0 flex flex-col xs:flex-row justify-start items-start gap-10 flex-wrap">
-                <div class="image-container mx-auto justify-center content-center items-center w-full sm:w-1/2">
-                    <img class="" :src="selectedProduct.image" />
-                </div>
-                <div class="flex flex-col flex-wrap sm:justify-start sm:content-start w-full lg:w-1/2">
-                    <p class="blog-post-meta">category: <strong>{{selectedProduct.category}}</strong></p>
-                    <h1 class="text-2xl p-0 text-start m-0">Product Title {{ selectedProduct.title }}</h1>
-                    <p class="lead my-3">Product Descriptiton {{ selectedProduct.description }}</p>
-                    <h3 class="pb-4 mb-4 border-bottom text-end font-bold sm:items-end ">
-                        {{ selectedProduct.price }} $
-                    </h3>
-                </div>
-            </div>
+
+        <div class="w-full h-[1px] bg-black/10"></div>
+
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-black/80">Description</h4>
+          <p class="text-black/70 text-sm sm:text-base font-light leading-relaxed">
+            {{ product.description }}
+          </p>
         </div>
+
+        <div class="pt-4 space-y-3 sm:space-y-0 sm:flex sm:items-center sm:space-x-4">
+          <button 
+            @click="handleAddToCart"
+            type="button" 
+            class="w-full sm:w-auto bg-black text-white hover:bg-black/10 hover:text-black border border-black font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-all duration-300 transform active:scale-[0.98]"
+          >
+            Add to cart
+          </button>
+          
+          <router-link :to="{ name: 'products' }" class="block w-full sm:w-auto">
+            <button 
+              type="button" 
+              class="w-full bg-transparent text-black border border-black/20 hover:border-black font-semibold text-xs uppercase tracking-widest px-8 py-4 rounded-none transition-colors"
+            >
+              Back to Shop
+            </button>
+          </router-link>
+        </div>
+
+      </div>
+
     </div>
+  </div>
+  <Footer></Footer>
 </template>
 
-
 <script>
+import { mapActions, mapMutations, mapGetters } from 'vuex';
 import { FlowerSpinner } from 'epic-spinners';
-import { mapGetters, mapActions} from 'vuex';
 import axios from 'axios';
-export default {
-    components: {
-        FlowerSpinner
-    },
-    data(){
-        return {
-            products: []
-        }
-    },
-    computed:{
-        ...mapGetters(['cartItems', 'isLoading']),
-        selectedProduct() {
-            const productId = this.$route.params.id;
-            // if(this.cartItems.length > 0){
-            //     const cartProduct = this.cartItems.find((product) => product.id === productId);
-            //     console.log(cartProduct, 'cartProduct')
-            //     return cartProduct
-            // }
+import Footer from '../FrontPage/footer.vue';
 
-            if(this.products) {
-                const apiProduct = this.products.find((product) => product.id === parseInt(productId))
-                if(apiProduct){
-                    console.log(apiProduct, 'apiProduct')
-                    return apiProduct
-                }
-            }
-            return {}
-        }
+export default {
+  name: 'ProductDetail',
+  components: {
+    FlowerSpinner,
+    Footer
+  },
+  data() {
+    return {
+      product: null
+    }
+  },
+  computed: {
+    ...mapGetters(['isLoading'])
+  },
+  async mounted() {
+    this.showLoader();
+    await this.fetchProductDetail();
+    this.hideLoader();
+  },
+  methods: {
+    ...mapMutations(['display_cart']),
+    ...mapActions(['showLoader', 'hideLoader', 'addCart']),
+    
+    // Laser targeted single item API call parameter parsing logic
+    async fetchProductDetail() {
+      const productId = this.$route.params.id;
+      if (!productId) return;
+      
+      try {
+        const response = await axios.get(`https://fakestoreapi.com/products/${productId}`);
+        this.product = response.data;
+      } catch (err) {
+        console.error("Store detail network fetching routine failure:", err);
+      }
     },
-    methods: {
-        ...mapActions(['showLoader', 'hideLoader', 'addCart']),
-        async fetchProducts(){
-            if(this.products.length === 0){
-                try {
-                const response = await axios.get(`https://fakestoreapi.com/products`)
-                this.products = response.data;
-                //this.$store.commit('setProducts', response.data )
-                } catch (err) {
-                    console.error(err);
-                }
-            }
-        },
-    },
-    // beforeRouteUpdate(to, from, next){
-    //     this.fetchProducts().then(()=>{
-    //         next();
-    //     })
-    // },
-    async mounted() {
-        this.showLoader();
-        await this.fetchProducts();
-        this.hideLoader();
-    },
+    
+    // Adds item to Vuex store and instantly triggers top navigation layout minicart overlay slideout
+    handleAddToCart() {
+      if (this.product) {
+        this.$store.dispatch('addCart', this.product);
+        this.display_cart(true);
+      }
+    }
+  }
 }
 </script>
+
 <style scoped>
-.main {
-    padding: 40px 20px;
-    width: auto;
-    max-width: 1000px;
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-.image-container {
-    height: auto;
-    max-width: 350px;
-    margin:auto;
-    display: flex;
-    justify-content: center;
-}
-img {
-    max-width: 300px;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px;
-}
+/* Scoped overrides removed safely. Responsive geometry is completely driven by dynamic grid flex layout controls. */
 </style>

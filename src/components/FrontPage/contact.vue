@@ -1,76 +1,89 @@
 <template>
-    <div v-if="!loading"
-        class="contact-container border rounded-xl shadow-xl mt-20 mb-16 pt-8 p-6 sm:w-2/3 md:w-1/2 mx-auto">
-        <h3 class="text-base sm:text-xl font-semibold mb-6"> Questions??? please fill following form to contact me.
-        </h3>
-
-        <div class="form-card">
-            <div class="signin_container p_top mt-4 py-4 px-2 m-auto">
-            <form @submit.prevent="sendEmail">
-
-                <div class="form-group">
-                    <input
-                        name="name"
-                        type="text"
-                        id="name"
-                        class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter your name"
-                        v-model="form.name"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <input
-                        name="company"
-                        type="text"
-                        id="company"
-                        class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter your company"
-                        v-model="form.company"
-                    />
-                </div>
+  <div v-if="!loading" class="w-full max-w-xl mx-auto px-6 py-16 md:py-20 transition-all duration-300">
     
-                <div class="form-group">
-                    <input
-                        name="email" 
-                        type="text"
-                        id="form-email"
-                        class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter your email"
-                        v-model="form.email"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <textarea
-                        name="textarea" 
-                        type="text"
-                        id="textarea"
-                        class="form-control mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter message"
-                        v-model="form.message">
-                        </textarea>
-                </div>
-
-                <button
-                    type="submit"
-                    class="btn outline mb-3 btn-block mt-2 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center hover:bg-gray-100"
-                > Send message
-                </button>
-                <div>(Built with Nodemailer and deployed to Firebase Cloud Functions)</div>
-            </form>
-        </div>
-        </div>
+    <div class="text-center mb-8">
+      <h3 class="text-black text-xl sm:text-2xl font-bold tracking-tight mb-2">
+        Have Questions?
+      </h3>
+      <p class="text-black/60 text-sm font-light tracking-wide">
+        Fill out the details below to drop me a direct message.
+      </p>
     </div>
-    <div v-else>
-        <div class="flex justify-center items-center min-h-screen">
-            <flower-spinner
-                :animation-duration="2500"
-                :size="70"
-                color="#ff1d5e"
-            />
-        </div>
-    </div>
+
+    <form @submit.prevent="sendEmail" class="space-y-5">
+      
+      <div class="form-group">
+        <input
+          name="name"
+          type="text"
+          id="name"
+          class="w-full bg-transparent border border-black/10 text-black text-sm rounded-none p-3 focus:outline-none focus:border-black transition-colors placeholder:text-black/40 font-light"
+          placeholder="Your Name"
+          v-model="form.name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          name="company"
+          type="text"
+          id="company"
+          class="w-full bg-transparent border border-black/10 text-black text-sm rounded-none p-3 focus:outline-none focus:border-black transition-colors placeholder:text-black/40 font-light"
+          placeholder="Your Company / Organization"
+          v-model="form.company"
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          name="email" 
+          type="email"
+          id="form-email"
+          class="w-full bg-transparent border border-black/10 text-black text-sm rounded-none p-3 focus:outline-none focus:border-black transition-colors placeholder:text-black/40 font-light"
+          placeholder="Your Email Address"
+          v-model="form.email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <textarea
+          name="textarea" 
+          id="textarea"
+          rows="4"
+          class="w-full bg-transparent border border-black/10 text-black text-sm rounded-none p-3 focus:outline-none focus:border-black transition-colors placeholder:text-black/40 font-light resize-none"
+          placeholder="Write your message here..."
+          v-model="form.message"
+          required
+        ></textarea>
+      </div>
+
+      <div class="pt-2">
+        <button
+          type="submit"
+          class="w-full bg-black text-white hover:bg-black/10 hover:text-black border border-black font-bold tracking-widest text-xs uppercase py-4 rounded-none transition-all duration-300 transform hover:scale-[1.01]"
+        > 
+          Send message
+        </button>
+      </div>
+
+      <div class="text-center pt-4">
+        <p class="text-[10px] sm:text-xs font-mono text-black/40 tracking-normal">
+          engine pipeline built with nodemailer & deployed on firebase cloud functions
+        </p>
+      </div>
+
+    </form>
+  </div>
+
+  <div v-else class="flex justify-center items-center min-h-[60vh] transition-all duration-300">
+    <flower-spinner
+      :animation-duration="2500"
+      :size="60"
+      color="#000000"
+    />
+  </div>
 </template>
 
 <script>
@@ -78,66 +91,67 @@ import { mapGetters } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert'
 import axios from 'axios';
 import { FlowerSpinner } from 'epic-spinners'
-//import router from '@/routes';
 import { api } from '@/services/api';
 
 export default {
-    components: {
-        FlowerSpinner
+  name: 'ContactForm',
+  components: {
+    FlowerSpinner
+  },
+  computed: {
+    ...mapGetters(['isAuth']),
+    showLogin() {
+      return !this.isAuth;
     },
-    computed:{
-        ...mapGetters(['isAuth']),
-        showLogin(){
-            return !this.isAuth;
-        },
-    },
-    data(){
-        return {
-            loading:false,
-            form: {
-                name:'',
-                email:'',
-                company:'',
-                message: ''
-            }
-        }
-    },
-    methods:{
-       async sendEmail(){
-            try {  
-                const { name, email, message } = this.form
-                // //localhost
-
-                // 2. Fire request to the correct variable url
-                await axios.post(api.sendEmail, {
-                    name,
-                    email,
-                    text: message
-                });
-   
-                // if (response.ok) {
-                this.loading = true;
-                showSweetAlert('success', 'Email sent successfully', false, 1500);
-                this.resetForm();
-                setTimeout(()=>{
-                    this.loading = false;
-                    window.scrollTo(0,0)
-                }, 3000)
-
-            } catch (err) {
-                showSweetAlert('error', 'An error occurred', false, 1500);
-                this.loading = false;
-            }
-        },
-        resetForm() {
-            this.form = {
-                name: '',
-                email: '',
-                company: '',
-                message: ''
-            };
-        }
+  },
+  data() {
+    return {
+      loading: false,
+      form: {
+        name: '',
+        email: '',
+        company: '',
+        message: ''
+      }
     }
-}
+  },
+  methods: {
+    async sendEmail() {
+      try {  
+        const { name, email, message } = this.form
 
+        await axios.post(api.sendEmail, {
+          name,
+          email,
+          text: message
+        });
+   
+        this.loading = true;
+        showSweetAlert('success', 'Email sent successfully', false, 1500);
+        this.resetForm();
+        
+        setTimeout(() => {
+          this.loading = false;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 3000)
+
+      } catch (err) {
+        showSweetAlert('error', 'An error occurred', false, 1500);
+        this.loading = false;
+      }
+    },
+    resetForm() {
+      this.form = {
+        name: '',
+        email: '',
+        company: '',
+        message: ''
+      };
+    }
+  }
+}
 </script>
+
+<style scoped>
+/* Extra messy hardcoded form styles removed. System fully follows architectural layout transitions. */
+</style>

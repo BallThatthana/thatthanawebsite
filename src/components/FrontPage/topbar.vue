@@ -7,15 +7,31 @@
   >
     <nav id="navbar" class="max-w-5xl w-full mx-auto px-6 flex items-center justify-between">
       
-      <div class="font-bold text-white text-lg tracking-tight hover:text-white/80 transition-colors">
-        <router-link :to="{ name: 'home' }">Bon Thatthana</router-link>
+      <div class="flex items-center space-x-3 select-none">
+        <template v-if="$route.path.startsWith('/products') || $route.name === 'checkout'">
+          <div class="font-bold text-white text-lg tracking-tight">
+            <router-link :to="{ name: 'products' }">Sample Shop</router-link>
+          </div>
+          <router-link 
+            :to="{ name: 'home' }"
+            class="text-[10px] font-mono tracking-wider uppercase bg-white/10 hover:bg-white text-white/80 hover:text-black border border-white/10 px-2.5 py-1 transition-all duration-300"
+          >
+            Portfolio
+          </router-link>
+        </template>
+
+        <template v-else>
+          <div class="font-bold text-white text-lg tracking-tight hover:text-white/80 transition-colors">
+            <router-link :to="{ name: 'home' }">Bon Thatthana</router-link>
+          </div>
+        </template>
       </div>
       
       <div class="flex items-center space-x-4 md:space-x-6">
         
         <div 
-          v-if="$route.path !== '/products'"
-          class="font-medium text-white/90 text-sm md:text-base hover:text-white transition-colors"
+          v-if="!$route.path.startsWith('/products') && $route.name !== 'checkout'"
+          class="text-[10px] font-mono tracking-wider uppercase bg-white/10 hover:bg-white text-white/80 hover:text-black border border-white/10 px-2.5 py-1 transition-all duration-300"
         >
           <router-link :to="{ name: 'products' }">Sample Shop</router-link>
         </div>
@@ -38,12 +54,19 @@
         </div>
         
         <div 
-          v-if="$route.path === '/products'"
+          v-if="$route.path.startsWith('/products') || $route.name === 'checkout'"
           @click="displayCart"
-          class="flex items-center space-x-2 text-white/90 hover:text-white cursor-pointer transition-colors text-sm md:text-base font-medium"
+          class="relative flex items-center space-x-2 text-white/90 hover:text-white cursor-pointer transition-colors text-sm md:text-base font-medium select-none group pr-1.5"
         >
           <i class="fas fa-shopping-bag"></i>
           <span>Cart</span>
+          
+          <span 
+            v-if="totalCartCount > 0"
+            class="absolute -top-2 -right-2 bg-white text-black font-mono font-bold text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow-sm animate-fade-in"
+          >
+            {{ totalCartCount }}
+          </span>
         </div>
 
       </div>
@@ -65,13 +88,15 @@ export default {
     Cart
   },
   computed: {
-    // CRITICAL FIX: Added 'isAuth' to mapGetters alongside 'showCart'
-    ...mapGetters(['showCart', 'isAuth'])
+    ...mapGetters(['showCart', 'isAuth', 'cartItems']),
+    totalCartCount() {
+      if (!this.cartItems) return 0;
+      return this.cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    }
   },
   data() {
     return {
-      isScrolled: false,
-      loading: true
+      isScrolled: false
     }
   },
   mounted() {
