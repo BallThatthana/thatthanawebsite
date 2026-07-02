@@ -16,14 +16,14 @@
         <div class="group flex flex-col justify-between bg-[#93B1A6] rounded-lg p-5 shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full max-w-sm">
           <div class="space-y-4">
             <div class="w-full aspect-[4/3] overflow-hidden rounded-md bg-white/10">
-              <a href="https://encode-decode-url.web.app/" target="_blank" class="block w-full h-full">
+              <a href="https://universalformatdecoder.netlify.app/" target="_blank" class="block w-full h-full">
                 <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://www.commontools.org/articles/images/10/1.svg" alt="encode-decode-app"/>
               </a>
             </div>
             <div class="space-y-2">
-              <h5 class="text-white font-bold text-lg tracking-tight">Encode-Decode URL</h5>
+              <h5 class="text-white font-bold text-lg tracking-tight">Universal Format Decoder</h5>
               <p class="text-white/90 text-sm font-light leading-relaxed">
-                Easily encode and decode URL strings securely to suit your everyday production routing configurations.
+                The all-in-one developer utility hub. Seamlessly encode, decode, and format complex strings including URLs, Base64 imagery, JSON payloads, HTML entities, and JWTs.
               </p>
             </div>
           </div>
@@ -35,14 +35,14 @@
         <div class="group flex flex-col justify-between bg-[#93B1A6] rounded-lg p-5 shadow-lg transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl w-full max-w-sm">
           <div class="space-y-4">
             <div class="w-full aspect-[4/3] overflow-hidden rounded-md bg-white/10">
-              <a href="https://effervescent-mooncake-0a224f.netlify.app/" target="_blank" class="block w-full h-full">
-                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://media.istockphoto.com/id/617744688/pt/foto/hand-hold-blank-white-card-mockup-with-rounded-corners.jpg?s=170667a&w=0&k=20&c=T4dWk4hsZEXqO5gEEM6XfkshXU_6c53rKlYdhvDMHvA=" alt="guitarrich-logo"/>
+              <a href="https://hiddeninterestexplorer.netlify.app/" target="_blank" class="block w-full h-full">
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://cdn.searchenginejournal.com/wp-content/uploads/2024/09/img_2024-09-09-195224-837-1440x810.jpeg" alt="guitarrich-logo"/>
               </a>
             </div>
             <div class="space-y-2">
-              <h5 class="text-white font-bold text-lg tracking-tight">Business Card Project</h5>
+              <h5 class="text-white font-bold text-lg tracking-tight">Meta InterestExplorer</h5>
               <p class="text-white/90 text-sm font-light leading-relaxed">
-                Dynamic personal and business card component interfaces built with React based directly on professional Figma design layers.
+                Tap directly into the Meta Graph API to reveal hidden, low-competition targeting matrices across interests, job roles, and academics globally.
               </p>
             </div>
           </div>
