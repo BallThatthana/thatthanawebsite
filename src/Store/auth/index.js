@@ -33,7 +33,7 @@ const authModule = {
   },
   mutations: {
     setUser(state, payload) {
-        console.log("setUser called:", payload);
+    
       state.user = {
         ...DEFAULT_USER,
         ...payload
@@ -109,20 +109,23 @@ const authModule = {
     //   },
 
     async getUserProfile(context,uid){
+      
       try{
-          console.log("UID received:", uid);
           const docSnap = await getDoc(doc(db,'users',uid));
-           console.log("Document exists:", docSnap.exists());
+          
           if(docSnap.exists()){
               return docSnap.data();
           } else {
               return null
           }
+
       } catch(error){
         console.log("no user profile found");
       }
+
     },
     async signin({ commit, dispatch }, payload) {
+
       try {
           await setPersistence(auth, browserLocalPersistence)
           const userCredential = await signInWithEmailAndPassword(
@@ -135,6 +138,7 @@ const authModule = {
 
         if (userData) {
           commit('setUser', userData);
+
         } else {
             const newUser = { 
             uid: userCredential.user.uid,
@@ -142,14 +146,10 @@ const authModule = {
             isAdmin: false
           };
 
-          console.log("Creating Firestore profile...");
-
           await setDoc(doc(db, 'users', userCredential.user.uid), newUser);
+          commit('setUser', newUser);
+
         }
-
-        console.log("Firestore profile created");
-
-        commit('setUser', newUser);
 
         showSweetAlert('success', 'signin successful', false, 1500);
        

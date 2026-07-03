@@ -1,13 +1,13 @@
 <template>
-  <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
+  <!-- <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
     <flower-spinner
       :animation-duration="2500"
       :size="60"
       color="#000000"
     />
-  </div>
+  </div> -->
 
-  <div v-else class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
+  <div class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
     <div v-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
       
       <div class="w-full aspect-square overflow-hidden bg-gray-50 p-6 flex items-center justify-center border border-black/5">
@@ -69,14 +69,14 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex';
-import { FlowerSpinner } from 'epic-spinners';
+//import { FlowerSpinner } from 'epic-spinners';
 import axios from 'axios';
 import Footer from '../FrontPage/footer.vue';
 
 export default {
   name: 'ProductDetail',
   components: {
-    FlowerSpinner,
+    //FlowerSpinner,
     Footer
   },
   data() {
