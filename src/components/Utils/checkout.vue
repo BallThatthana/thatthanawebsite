@@ -1,13 +1,13 @@
 <template> 
-  <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
+  <!-- <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
     <flower-spinner
       :animation-duration="2500"
       :size="60"
       color="#000000"
     />
-  </div>
+  </div> -->
 
-  <div v-else class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
+  <div class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
     <div v-if="!cartItems.length" class="text-center py-20">
       <h3 class="text-black text-xl sm:text-2xl font-bold tracking-tight mb-4">Your Cart is Empty</h3>
       <p class="text-black/60 text-sm font-light mb-6">Please choose some items from our showcase catalog to proceed.</p>
@@ -141,7 +141,7 @@
 import { mapGetters, mapActions } from 'vuex';
 import { showSweetAlert } from '../../Store/utils/sweetalert';
 import axios from 'axios';
-import { FlowerSpinner } from 'epic-spinners';
+//import { FlowerSpinner } from 'epic-spinners';
 import { api } from '@/services/api';
 import Footer from '../FrontPage/footer.vue';
 
@@ -149,7 +149,7 @@ export default {
   name: 'StoreCheckout',
   emits: ['close'],
   components: {
-    FlowerSpinner,
+    //FlowerSpinner,
     Footer
   },
   computed: {
@@ -184,30 +184,34 @@ export default {
         email: '',
         company: '',
         address: '',
+        items: ''
       },
     }
   },
   async mounted() {
-    this.showLoader();
-    this.hideLoader();
+
   },
   methods: {
     ...mapActions(['showLoader', 'hideLoader', 'removeCart', 'increaseCartItem', 'decreaseCartItem']),
     
     async sendOrderEmail() {
       try {  
-        const { name, email, company, address } = this.form;
+        const { name, email, company, address} = this.form;
         this.showLoader();
-
-        await axios.post(api.sendEmail, {
+ 
+        await axios.post(api.sendOrder, {
           name,
           email,
           company, 
           address,
           items: this.cartItems
         });
+
+        this.hideLoader();
    
-        showSweetAlert('success', 'Order placed successfully', false, 1500);
+        showSweetAlert('success', 'Order placed successfully', false, 3000);
+
+        this.$store.dispatch('clearCart', []);
         
         setTimeout(() => {
           this.form = {
@@ -215,11 +219,12 @@ export default {
             email: '',
             company: '',
             address: '',
+            items: []
           };
-          this.$store.dispatch('clearCart', []);
-          this.hideLoader();
-          this.$router.push('/products');
-        }, 3000);
+
+        }, 2000);
+
+        this.$router.push('/products');
       } catch (err) {
         showSweetAlert('error', 'An error occurred during transaction processing.', false, 1500);
         this.hideLoader();

@@ -88,9 +88,7 @@ export default {
     ...mapGetters(['isLoading'])
   },
   async mounted() {
-    this.showLoader();
     await this.fetchProductDetail();
-    this.hideLoader();
   },
   methods: {
     ...mapMutations(['display_cart']),

@@ -72,51 +72,102 @@ exports.sendOrderEmail = functions.runWith({
 
   cors(req, res, async () => {
     try {
-      const { name, email, text, address, items } = req.body;
+
+      const { name, company, email, address, items } = req.body;
 
       if (!process.env.VUE_APP_OWNER_MAIL || !process.env.VUE_APP_OWNER_PASS) {
         throw new Error("Missing credentials inside Cloud environment variables.");
       }
 
-      let visitorMailText = `Hi ${name},\n\nThank you for your order.\n\nOrders:\n`;
-      let total = 0;
-
-      if (items && Array.isArray(items)) {
-        items.forEach(item => {
-          visitorMailText += `- ${item.title} - ${item.price}\n`;
-          total += item.price * (item.quantity || 1);
+      if (!name || !email || !address) {
+        return res.status(400).json({
+          error: "Missing required fields."
         });
       }
-      
-      visitorMailText += `\nOrder amount: ${total}\n`;
-      visitorMailText += `Address: ${address}\n\nBest regards,\nBall Thatthana`;
+
+      if (!Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({
+          error: "Order is empty."
+        });
+      }
+
+      let visitorMailText =
+`Hi ${name},
+
+Thank you for your order.
+
+Order Summary
+--------------------------------
+
+`;
+
+      let total = 0;
+
+      items.forEach((item) => {
+        const quantity = item.quantity || 1;
+        const subtotal = item.price * quantity;
+
+        visitorMailText +=
+`${item.title}
+Quantity: ${quantity}
+Price: $${item.price}
+Subtotal: $${subtotal}
+
+`;
+
+        total += subtotal;
+      });
+
+      visitorMailText +=
+`--------------------------------
+
+Order Total: $${total}
+
+Company: ${company || "-"}
+Address: ${address}
+
+Best regards,
+Ball Thatthana`;
 
       const visitorMail = {
         from: process.env.VUE_APP_OWNER_MAIL,
         to: email,
-        subject: 'Thank you for your order.',
+        subject: "Thank you for your order",
         text: visitorMailText
       };
 
       const myEmailCopy = {
         from: process.env.VUE_APP_OWNER_MAIL,
         to: process.env.VUE_APP_OWNER_MAIL,
-        subject: 'New Order Received',
-        text: `Hi,\n\nYou received a new order from ${name} (${email}).\n\nDetails:\n${visitorMailText}`
+        subject: "New Order Received",
+        text:
+`Customer: ${name}
+Email: ${email}
+
+${visitorMailText}`
       };
 
       const transporter = createEmailTransporter();
-      
+
       await Promise.all([
         transporter.sendMail(visitorMail),
         transporter.sendMail(myEmailCopy)
       ]);
 
-      return res.status(200).json({ message: 'Order emails sent successfully.' });
+      return res.status(200).json({
+        message: "Order emails sent successfully."
+      });
 
     } catch (err) {
+
       console.error("Function crashed:", err);
-      return res.status(500).json({ error: 'Internal Server Error', details: err.message });
+
+      return res.status(500).json({
+        error: "Internal Server Error",
+        details: err.message
+      });
+
     }
   });
+
 });
