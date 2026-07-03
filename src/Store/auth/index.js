@@ -4,8 +4,8 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db, auth} from '../../firebase';
 import { showSweetAlert } from '../utils/sweetalert';
 //import { FlowerSpinner } from 'epic-spinners';
-import axios from 'axios';
-import { CirclesToRhombusesSpinner } from 'epic-spinners';
+// import axios from 'axios';
+// import { CirclesToRhombusesSpinner } from 'epic-spinners';
 
 const DEFAULT_USER = {
   uid: null,
@@ -93,7 +93,7 @@ const authModule = {
         dispatch('removeToken');
         showSweetAlert('success', 'Logout successful', false, 2000);
         setTimeout(()=>{
-          window.location.href = '/'
+          router.push('/')
         },1000)
       } catch (error) {
         showSweetAlert('error', error, 1500, false);
@@ -132,13 +132,18 @@ const authModule = {
         const userData = await dispatch('getUserProfile',userCredential.user.uid);
         commit('setUser',userData);
         showSweetAlert('success', 'signin successful', false, 1500);
-      } catch (error) {
-          showSweetAlert('error', error, false, 1500);
-        if (error.code === 'auth/wrong-password') {
-          showSweetAlert('error', 'wrong password', false, 1500);
-        } else {
-          showSweetAlert('error', error, false, 1500);
-        }
+       
+        } catch (error) {
+            switch(error.code){
+            case 'auth/wrong-password':
+            showSweetAlert('wrong password', error, false, 1500);
+            break;
+            case 'auth/email-already-in-use':
+            showSweetAlert('email already in use', error, false, 1500);
+            break;
+            default:
+            showSweetAlert("something is wrong", error, false, 1500);
+          }
       }
     },
     async signup({ commit, dispatch }, payload) {

@@ -2,7 +2,7 @@
     <div>
        <Banner></Banner>
        <Social></Social>
-       <CV></CV>
+       <!-- <CV></CV> -->
        <AboutMe></AboutMe>
        <Portfolio></Portfolio>
        <Contact_Form></Contact_Form>
@@ -16,7 +16,7 @@ import Banner from './banner.vue'
 import Portfolio from './portfolio.vue'
 import Social from './social-icon.vue'
 import Contact_Form from './contact.vue'
-import CV from './cv.vue'
+//import CV from './cv.vue'
 import Footer from './footer.vue'
 import AboutMe from './aboutMe.vue';
 
@@ -26,7 +26,7 @@ export default {
         Portfolio,
         Social,
         Contact_Form,
-        CV,
+        // CV,
         Footer,
         AboutMe
     },

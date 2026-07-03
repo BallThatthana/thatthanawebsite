@@ -29,7 +29,6 @@
           <div class="w-full aspect-square overflow-hidden bg-gray-50 p-2 flex items-center justify-center">
             <router-link :to="{ name: 'product-detail', params: {id: product.id}}" class="block w-full h-full relative">
               <img 
-                @click="pushToState(product)" 
                 class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" 
                 :src="product.image" 
                 :alt="product.title"
