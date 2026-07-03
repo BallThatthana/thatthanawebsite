@@ -43,11 +43,15 @@ router.beforeEach(async (to, from, next) => {
       path: '/login',
       query: { redirectFrom: to.fullPath },
     });
+    store.dispatch('hideLoader');
+    
   } else if (to.name === 'signup' && isAuth) {
     // If logged in, block access to login page and redirect home
     next({ path: to.query.redirectFrom || '/' });
+    store.dispatch('hideLoader');
   } else {
     // Proceed safely
+    store.dispatch('hideLoader');
     next();
   }
 });

@@ -2,13 +2,13 @@
   <div>
     <div v-if="isLoading"
       class="spinner flex justify-center items-center min-h-screen">
-          <flower-spinner
-              :animation-duration="2500"
-              :size="70"
-              color="#ff1d5e"
-          />
+        <flower-spinner
+          :animation-duration="2500"
+          :size="70"
+          color="#ff1d5e"
+        />
     </div>
-    <div v-else>
+    <div v-else >
       <top-bar></top-bar>
       <router-view></router-view>
     </div>
@@ -17,8 +17,9 @@
 
 <script>
 import { FlowerSpinner } from 'epic-spinners'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import TopBar from './components/FrontPage/topbar.vue'
+import { showSweetAlert } from './Store/utils/sweetalert.js';
 //import Footer from './components/FrontPage/footer.vue'
 
 export default {
@@ -28,39 +29,33 @@ components:{
   TopBar,
   //Footer
 },
+methods: {
+  ...mapActions(['showLoader', 'hideLoader']),
+},
 computed:{
-  ...mapGetters(['loader', 'isAuth', 'getUserData']),
-  isLoading(){
-    return this.$store.getters.loader
-  },
-  isAuth(){
-    return this.$store.getters.isAuth
-  },
-  getUserData(){
-    return this.$store.getters.getUserData
-  },
-  data(){
-    return {
-  
+  ...mapGetters(['isLoading', 'isAuth', 'getUserData']),
+  // isLoading(){
+  //   return this.$store.getters.isLoading
+  // },
+  // isAuth(){
+  //   return this.$store.getters.isAuth
+  // },
+  // getUserData(){
+  //   return this.$store.getters.getUserData
+  // },
   }
-},
-// beforeRouteEnter(to, from, next) {
-//   next(vm => {
-//     vm.checkAuthStatus().then(()=>{
-//       vm.$store.dispatch('hideLoader');
-//     })
-//   });
-},
-// async created(){
-//  // await this.$store.dispatch('autoLogin', this.getUserData );
-//   this.$store.dispatch('hideLoader');
-// },
-// async beforeMount(){
-//   // this.$store.dispatch('checkAuthStatus')
-//   // .then(()=>{
-//     this.$store.dispatch('hideLoader')
-//   // })
-// },
+  ,
+  async mounted(){
+    this.showLoader();
+    try {
+      await this.$store.dispatch('checkAuthStatus', this.getUserData );
+      
+    } catch(err){
+      showSweetAlert("error", err , false, 1500)
+    } finally {
+      this.hideLoader();
+    }
+  },
 }
 </script>
 

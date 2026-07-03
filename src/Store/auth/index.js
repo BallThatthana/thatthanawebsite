@@ -3,6 +3,7 @@ import { onAuthStateChanged, createUserWithEmailAndPassword, setPersistence, sig
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db, auth} from '../../firebase';
 import { showSweetAlert } from '../utils/sweetalert';
+import router from '@/routes';
 //import { FlowerSpinner } from 'epic-spinners';
 // import axios from 'axios';
 // import { CirclesToRhombusesSpinner } from 'epic-spinners';
@@ -20,7 +21,7 @@ const DEFAULT_USER = {
 const authModule = {
   state() {
     return {
-      user: DEFAULT_USER,
+      user: {...DEFAULT_USER},
       auth: false,
       loginForm: false,
     };
@@ -32,18 +33,15 @@ const authModule = {
   },
   mutations: {
     setUser(state, payload) {
+        console.log("setUser called:", payload);
       state.user = {
-        email: payload.email,
-        password: payload.password,
-        token: payload.idToken,
-        refresh: payload.refreshTtoken,
-        uid: payload.uid,
+        ...DEFAULT_USER,
         ...payload
       };
       state.auth = true;
     },
     clearUser(state) {
-      state.user = DEFAULT_USER;
+      state.user = {...DEFAULT_USER};
       state.auth = false;
     },
     handleLogin(state){
@@ -72,12 +70,13 @@ const authModule = {
       // commit('setRefresh')
       // commit('setToken')
     },
-    async checkAuthStatus({ commit }) {
+    async checkAuthStatus({ commit, dispatch }) {
       // Use onAuthStateChanged to listen for authentication state changes
-      return new Promise((resolve, reject)=>{
-        onAuthStateChanged(auth,(user)=>{
+      return new Promise((resolve)=>{
+
+        onAuthStateChanged(auth, async (user)=>{
+
           if(user){
-            //console.log(user, 'onAuthStateChanged')
             commit('setUser', user);
           } else {
             commit('clearUser');
@@ -89,8 +88,8 @@ const authModule = {
     async logOut({ commit, dispatch }) {
       try {
         await signOut(auth);
-        commit('clearUser');
-        dispatch('removeToken');
+        await commit('clearUser');
+        await dispatch('removeToken');
         showSweetAlert('success', 'Logout successful', false, 2000);
         setTimeout(()=>{
           router.push('/')
@@ -99,25 +98,28 @@ const authModule = {
         showSweetAlert('error', error, 1500, false);
       }
     },
-    async autoLogin({ commit, dispatch }, payload) {
-      try {
-        const userData = await dispatch('getUserProfile',payload.uid);
-        commit('setUser', userData);
-        return true;
-        } catch(error){
-          showSweetAlert('error', error, false, 1500);
-        }
-      },
-    async getUserProfile({commit},payload){
+    // async autoLogin({ commit, dispatch }, payload) {
+    //   try {
+    //     const userData = await dispatch('getUserProfile',payload.uid);
+    //     commit('setUser', userData);
+    //     return true;
+    //     } catch(error){
+    //       console.log("no autologin");
+    //     }
+    //   },
+
+    async getUserProfile(context,uid){
       try{
-          const docSnap = await getDoc(doc(db,'users',payload));
+          console.log("UID received:", uid);
+          const docSnap = await getDoc(doc(db,'users',uid));
+           console.log("Document exists:", docSnap.exists());
           if(docSnap.exists()){
               return docSnap.data();
           } else {
               return null
           }
       } catch(error){
-        showSweetAlert('error', error, false, 1500);
+        console.log("no user profile found");
       }
     },
     async signin({ commit, dispatch }, payload) {
@@ -130,19 +132,37 @@ const authModule = {
         );
         
         const userData = await dispatch('getUserProfile',userCredential.user.uid);
-        commit('setUser',userData);
+
+        if (userData) {
+          commit('setUser', userData);
+        } else {
+            const newUser = { 
+            uid: userCredential.user.uid,
+            email: userCredential.user.email,
+            isAdmin: false
+          };
+
+          console.log("Creating Firestore profile...");
+
+          await setDoc(doc(db, 'users', userCredential.user.uid), newUser);
+        }
+
+        console.log("Firestore profile created");
+
+        commit('setUser', newUser);
+
         showSweetAlert('success', 'signin successful', false, 1500);
        
         } catch (error) {
             switch(error.code){
             case 'auth/wrong-password':
-            showSweetAlert('wrong password', error, false, 1500);
+            showSweetAlert('error', 'wrong password', false, 1500);
             break;
             case 'auth/email-already-in-use':
-            showSweetAlert('email already in use', error, false, 1500);
+            showSweetAlert('error', "Email in use", false, 1500);
             break;
             default:
-            showSweetAlert("something is wrong", error, false, 1500);
+            showSweetAlert('error', error.message, false, 1500);
           }
       }
     },

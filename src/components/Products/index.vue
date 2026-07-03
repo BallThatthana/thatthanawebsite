@@ -1,13 +1,13 @@
 <template>
-  <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
+  <!-- <div class="flex justify-center items-center min-h-screen w-full bg-white">
     <flower-spinner
       :animation-duration="2500"
       :size="60"
       color="#000000"
     />
-  </div>
+  </div> -->
 
-  <div v-else id="main-container" class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300" @click="closeCart">
+  <div id="main-container" class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300" @click="closeCart">
     
     <div class="text-center mb-12 md:mb-16">
       <h2 class="text-black text-3xl sm:text-4xl font-bold tracking-tight mb-2">
@@ -71,14 +71,14 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex';
-import { FlowerSpinner } from 'epic-spinners';
+//import { FlowerSpinner } from 'epic-spinners';
 import axios from 'axios';
 import Footer from '../FrontPage/footer.vue';
 
 export default {
   name: 'ProductCatalog',
   components: {
-    FlowerSpinner,
+    // FlowerSpinner,
     Footer
   },
   computed: {
@@ -90,8 +90,9 @@ export default {
     }
   },
   async mounted() {
+    //this.showLoader()
     await this.fetchProducts();
-    this.hideLoader();
+    //this.hideLoader();
   },
   methods: {
     ...mapMutations(['display_cart']),
@@ -103,7 +104,6 @@ export default {
       }
     },
     async pushToState(item) {
-      this.showLoader();
       await this.$store.dispatch('addCart', item)
     },
     addToCart(item) {
@@ -112,7 +112,6 @@ export default {
     },
     async fetchProducts() {
       try {
-        this.showLoader();
         const response = await axios.get(`https://fakestoreapi.com/products`)
         this.products = response.data;
       } catch (err) {
