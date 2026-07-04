@@ -2,11 +2,7 @@
   <div>
     <div v-if="isLoading"
       class="spinner flex justify-center items-center min-h-screen">
-        <flower-spinner
-          :animation-duration="2500"
-          :size="70"
-          color="#ff1d5e"
-        />
+        <flowerSpinner/>
     </div>
     <div v-else >
       <top-bar></top-bar>
@@ -16,16 +12,17 @@
 </template>
 
 <script>
-import { FlowerSpinner } from 'epic-spinners'
+//import { FlowerSpinner } from 'epic-spinners'
 import { mapActions, mapGetters } from 'vuex'
 import TopBar from './components/FrontPage/topbar.vue'
 import { showSweetAlert } from './Store/utils/sweetalert.js';
 //import Footer from './components/FrontPage/footer.vue'
+import flowerSpinner from './components/Utils/flowerSpinner.vue';
 
 export default {
 name: 'App',
 components:{
-  FlowerSpinner,
+  flowerSpinner,
   TopBar,
   //Footer
 },

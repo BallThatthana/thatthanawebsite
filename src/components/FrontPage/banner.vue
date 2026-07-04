@@ -1,5 +1,5 @@
 <template>
-  <div id="banner-container" class="w-full min-h-[75vh] md:min-h-[85vh] flex items-center justify-center px-6 py-12 md:py-20">
+  <div id="banner-container" class="w-full min-h-[95vh] md:min-h-[105vh] flex items-center justify-center px-6 py-12 md:py-20">
     <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center">
       
       <div class="md:col-span-5 flex flex-col items-center text-center"> 

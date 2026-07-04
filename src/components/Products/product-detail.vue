@@ -1,13 +1,9 @@
 <template>
-  <!-- <div v-if="isLoading" class="flex justify-center items-center min-h-screen w-full bg-white">
-    <flower-spinner
-      :animation-duration="2500"
-      :size="60"
-      color="#000000"
-    />
-  </div> -->
+  <div v-if="loader" class="flex justify-center items-center min-h-screen w-full bg-white">
+    <flowerSpinner/>
+  </div>
 
-  <div class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
+  <div v-else class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300">
     <div v-if="product" class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
       
       <div class="w-full aspect-square overflow-hidden bg-gray-50 p-6 flex items-center justify-center border border-black/5">
@@ -69,19 +65,20 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex';
-//import { FlowerSpinner } from 'epic-spinners';
+import flowerSpinner from '../Utils/flowerSpinner.vue';
 import axios from 'axios';
 import Footer from '../FrontPage/footer.vue';
 
 export default {
   name: 'ProductDetail',
   components: {
-    //FlowerSpinner,
+    flowerSpinner,
     Footer
   },
   data() {
     return {
-      product: null
+      product: null,
+      loader: false
     }
   },
   computed: {
@@ -96,12 +93,15 @@ export default {
     
     // Laser targeted single item API call parameter parsing logic
     async fetchProductDetail() {
+
+      this.loader = true;
       const productId = this.$route.params.id;
       if (!productId) return;
       
       try {
         const response = await axios.get(`https://fakestoreapi.com/products/${productId}`);
         this.product = response.data;
+        this.loader = false;
       } catch (err) {
         console.error("Store detail network fetching routine failure:", err);
       }

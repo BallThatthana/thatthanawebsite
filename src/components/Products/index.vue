@@ -1,13 +1,9 @@
 <template>
-  <!-- <div class="flex justify-center items-center min-h-screen w-full bg-white">
-    <flower-spinner
-      :animation-duration="2500"
-      :size="60"
-      color="#000000"
-    />
-  </div> -->
+  <div v-if="loader" class="flex justify-center items-center min-h-screen w-full bg-white">
+    <flowerSpinner/>
+  </div>
 
-  <div id="main-container" class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300" @click="closeCart">
+  <div v-else id="main-container" class="w-full max-w-5xl mx-auto px-6 pt-28 pb-16 transition-all duration-300" @click="closeCart">
     
     <div class="text-center mb-12 md:mb-16">
       <h2 class="text-black text-3xl sm:text-4xl font-bold tracking-tight mb-2">
@@ -45,7 +41,6 @@
         <div class="mt-6 space-y-2">
           <router-link :to="{ name: 'product-detail', params: {id: product.id}}" class="block w-full">
             <button 
-              @click="pushToState(product)"
               type="button" 
               class="w-full bg-transparent text-black border border-black/20 hover:border-black font-semibold text-xs uppercase tracking-wider py-2.5 transition-colors rounded-none"
             >
@@ -71,14 +66,14 @@
 
 <script>
 import { mapActions, mapMutations, mapGetters } from 'vuex';
-//import { FlowerSpinner } from 'epic-spinners';
+import flowerSpinner from '../Utils/flowerSpinner.vue';
 import axios from 'axios';
 import Footer from '../FrontPage/footer.vue';
 
 export default {
   name: 'ProductCatalog',
   components: {
-    // FlowerSpinner,
+    flowerSpinner,
     Footer
   },
   computed: {
@@ -86,13 +81,12 @@ export default {
   },                                                      
   data() {
     return {
-      products: []
+      products: [],
+      loader: false
     }
   },
   async mounted() {
-    //this.showLoader()
     await this.fetchProducts();
-    //this.hideLoader();
   },
   methods: {
     ...mapMutations(['display_cart']),
@@ -103,17 +97,19 @@ export default {
         this.display_cart(false);
       }
     },
-    async pushToState(item) {
-      await this.$store.dispatch('addCart', item)
-    },
+    // async pushToState(item) {
+    //   await this.$store.dispatch('addCart', item)
+    // },
     addToCart(item) {
       this.$store.dispatch('addCart', item)
       this.display_cart(true)
     },
     async fetchProducts() {
+      this.loader = true;
       try {
         const response = await axios.get(`https://fakestoreapi.com/products`)
         this.products = response.data;
+        this.loader = false;
       } catch (err) {
         console.error("Failed to load storefront metrics:", err);
       }
